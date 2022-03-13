@@ -10,13 +10,20 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // set the town name
         townNameUI = transform.Find("MGTownName").GetComponent<Text>();
         townNameUI.text = NewGameMenu.townName.text;
 
-        // Update is called once per frame
-        void Update()
-        {
+        // do more stuff
 
-        }
+
+
     }
+
+    // Update is called once per frame
+    void Update()
+    { 
+
+    }
+    
 }

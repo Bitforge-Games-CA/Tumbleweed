@@ -15,7 +15,7 @@ public class TimeManager2 : MonoBehaviour
     public static Action onDayChanged;
     public static Action onMonthChanged;
 
-    public float timeScale = 2.5f;
+    public float timeScale = 12.0f;
     public float timer;
 
     public int hourDay = 8;
@@ -101,7 +101,7 @@ public class TimeManager2 : MonoBehaviour
         {
             pausedTime = false;
 
-        } else
+        } else if (pausedTime == false)
         {
             pausedTime = true;
         }
@@ -111,24 +111,24 @@ public class TimeManager2 : MonoBehaviour
     public void ResumeGameTimer()
     {
         pausedTime = false;
-        timeScale = 2.5f;
+        timeScale = 12.0f;
     }
 
     public void FFW1()
     {
-        timeScale = 1.75f;
+        pausedTime = false;
+        timeScale = 9.0f;
     }
 
     public void FFW2()
     {
-        timeScale = 1.0f;
+        pausedTime = false;
+        timeScale = 6.0f;
     }
 
-    // (rangeMax - rangeMin) * value + rangeMin
     public void AdjustLightDay(int time)
     {
         float normalizedFloat = Mathf.InverseLerp(-6, 12, time);
-        Debug.Log("ALD: " + normalizedFloat);
         sun2D.intensity = normalizedFloat;
         
     }
@@ -136,7 +136,6 @@ public class TimeManager2 : MonoBehaviour
     public void AdjustLightNight(int time)
     {
         float normalizedFloat = Mathf.InverseLerp(18, 1, time);
-        Debug.Log("ALN: " + normalizedFloat);
         sun2D.intensity = normalizedFloat;
     }
 
