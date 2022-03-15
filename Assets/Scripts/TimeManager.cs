@@ -37,7 +37,7 @@ public class TimeManager : MonoBehaviour
         BuildMonthList();
         dateTimeUI = transform.Find("DateText").GetComponent<Text>();
         hourTimeUI = transform.Find("HourText").GetComponent<Text>();
-        sun2D = transform.Find("Global Light 2D").GetComponent<Light2D>();
+        sun2D = GameObject.FindWithTag("Sun").GetComponent<Light2D>();
         timer = timeScale;
         dateTimeUI.text = $"{monthList[month]} {day}, {year}";
     }

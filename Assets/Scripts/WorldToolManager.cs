@@ -12,7 +12,7 @@ public class WorldToolManager : MonoBehaviour
     // TileDesignationFlattening()
     public List<Vector3Int> flattenTilePosList;
 
-    // SetTileDesignation
+    // SetTileFlattenDesignation
     public bool isTileDesignatorFlattenActive;
     public Toggle flattenButton;
 
@@ -27,10 +27,17 @@ public class WorldToolManager : MonoBehaviour
     public List<Vector3Int> miningTilePosList;
     public Vector3Int designatedTilePos;
 
-    // SetTileDesignation()
+    // SetTileMiningDesignation()
     public bool isTileDesignatorMiningActive;
     public GameObject selectionBoxGO;
     public Toggle miningButton;
+
+    // TileDesignationHarvesting()
+    public bool isTileDesignatorHarvestingActive;
+    public Toggle harvestButton;
+
+    // SetTileDesignationHarvesting()
+    public List<Vector3Int> harvestTilePosList;
 
     // LayerSelection()
     public List<Tilemap> tilemapList;
@@ -47,6 +54,7 @@ public class WorldToolManager : MonoBehaviour
        BuildLayerList();
        flattenButton = GameObject.FindGameObjectWithTag("Flatten Button").GetComponent<Toggle>();
        miningButton = GameObject.FindGameObjectWithTag("Mining Button").GetComponent<Toggle>();
+       harvestButton = GameObject.FindGameObjectWithTag("Harvest Button").GetComponent<Toggle>();
     }
 
     // Update is called once per frame
@@ -61,13 +69,6 @@ public class WorldToolManager : MonoBehaviour
             TileDesignationFlattening();
         }
 
-        if (isTileDesignatorFlattenActive == false)
-        {
-            // if it false hide
-            // the selection box
-            selectionBoxGO.SetActive(false);
-        }
-
         // Mining
         if (isTileDesignatorMiningActive == true)
         {
@@ -77,24 +78,42 @@ public class WorldToolManager : MonoBehaviour
             TileDesignationMining();
         }
 
-        if (isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false)
+        // Harvesting
+
+        if (currentLayer != 1)
+        {
+            harvestButton.interactable = false;
+
+        } else if (currentLayer == 1 && isTileDesignatorFlattenActive == false && isTileDesignatorMiningActive == false)
+        {
+            harvestButton.interactable = true;
+        }
+
+        if (isTileDesignatorHarvestingActive == true)
+        {
+            TileDesignationHarvesting();
+        }
+
+        if (isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false && isTileDesignatorHarvestingActive == false)
         {
             // if it false hide
             // the selection box
             selectionBoxGO.SetActive(false);
+            tilemap = tilemapList[currentLayer];
         }
+
+        LayerSelection();
 
     }
 
 
     public void TileDesignationFlattening()
     {
-        if (currentLayer == 1)
-        {
+
             // get the mouse position and set it equal to worldPos
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // magic number 2.125f is actually with in a range of 1.000f - 2.250f
+            // magic number 2.125f is actually with in a range of 1.000f - 2.375f
             //  value correction 1
             worldPos.z = 1.0f;
 
@@ -151,58 +170,33 @@ public class WorldToolManager : MonoBehaviour
                 // each offset level
                 worldPos.z += .125f;
             }
-
-        } else if (currentLayer == 2)
-        {
-            // parse layer
-
-        }
-        else if (currentLayer == 3)
-        {
-            // parse layer
-
-        }
-        else if (currentLayer == 4)
-        {
-            // parse layer
-
-        }
-        else if (currentLayer == 5)
-        {
-            // parse layer
-
-        }
-        else if (currentLayer == 6)
-        {
-            // parse layer
-
-        }
     }
 
     public void SetTileDesignationFlattening()
     {
-        if (isTileDesignatorFlattenActive == false && isTileDesignatorMiningActive == false)
+        if (isTileDesignatorFlattenActive == false && isTileDesignatorMiningActive == false && isTileDesignatorHarvestingActive == false)
         {
             isTileDesignatorFlattenActive = true;
             miningButton.interactable = false;
+            harvestButton.interactable = false;
 
         }
         else if (isTileDesignatorFlattenActive == true)
         {
             isTileDesignatorFlattenActive = false;
             miningButton.interactable = true;
+            harvestButton.interactable = true;
         }
 
     }
 
     public void TileDesignationMining()
     {
-        if (currentLayer == 1)
-        {
+
             // get the mouse position and set it equal to worldPos
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // magic number 2.125f is actually with in a range of 1.000f - 2.250f
+            // magic number 2.125f is actually with in a range of 1.000f - 2.3275f
             //  value correction 1
             worldPos.z = 1.0f;
 
@@ -256,61 +250,133 @@ public class WorldToolManager : MonoBehaviour
                 // each offset level
                 worldPos.z += .125f;
             }
-        } else if (currentLayer == 2)
-        {
-            // parse layer
-
-        } else if (currentLayer == 3)
-        {
-            // parse layer
-
         }
-        else if (currentLayer == 4)
-        {
-            // parse layer
-
-        }
-        else if (currentLayer == 5)
-        {
-            // parse layer
-
-        }
-        else if (currentLayer == 6)
-        {
-            // parse layer
-
-        }
-    }
 
     public void SetTileDesignationMining()
     {
-        if (isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false)
+        if (isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false && isTileDesignatorHarvestingActive == false)
         {
             isTileDesignatorMiningActive = true;
             flattenButton.interactable = false;
+            harvestButton.interactable = false;
 
         } else if (isTileDesignatorMiningActive == true)
         {
             isTileDesignatorMiningActive = false;
             flattenButton.interactable = true;
+            harvestButton.interactable = true;
         }
     }
+
+    public void TileDesignationHarvesting()
+    {
+        tilemap = tilemapList[0];
+        // get the mouse position and set it equal to worldPos
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // magic number 2.125f is actually with in a range of 1.000f - 2.250f
+        //  value correction 1
+        worldPos.z = 1.0f;
+
+        // find the tilemapPos and set the selectinBox.position
+        Vector3Int tilemapPos = tilemap.WorldToCell(worldPos);
+        selectionBoxPos.position = tilemap.GetCellCenterWorld(tilemapPos);
+
+        // loop thru the z offsets to find the tile
+        while (worldPos.z < 5.00f)
+        {
+            // find the tilemapPos
+            tilemapPos = tilemap.WorldToCell(worldPos);
+
+            // print variables
+            //Debug.Log("wP: " + worldPos);
+            //Debug.Log("tmP: " + tilemapPos);
+
+            // if theres a tile, do X
+            if (selectedTile = (Tile)tilemap.GetTile(tilemapPos))
+            {
+                designatedTilePos = tilemapPos;
+
+                while (Input.GetMouseButton(1))
+                {
+                    if (!designatedTilePosList.Contains(tilemapPos) && !harvestTilePosList.Contains(tilemapPos))
+                    {
+                        tilemap.SetTileFlags(tilemapPos, TileFlags.None);
+                        tilemap.SetColor(tilemapPos, new Vector4(0.75f, 0, 0, 1));
+                        designatedTilePosList.Add(tilemapPos);
+                        harvestTilePosList.Add(tilemapPos);
+                    }
+                    break;
+                }
+
+                while (Input.GetMouseButton(0))
+                {
+                    if (designatedTilePosList.Contains(tilemapPos) && harvestTilePosList.Contains(tilemapPos))
+                    {
+                        tilemap.SetTileFlags(tilemapPos, TileFlags.None);
+                        tilemap.SetColor(tilemapPos, Color.white);
+                        designatedTilePosList.Remove(tilemapPos);
+                        harvestTilePosList.Remove(tilemapPos);
+
+                    }
+                    break;
+                }
+                break;
+            }
+
+            // incremement for
+            // each offset level
+            worldPos.z += .125f;
+        }
+    }
+
+
+
+
+
+
+    public void SetTileDesignationHarvesting()
+    {
+        if (isTileDesignatorHarvestingActive == false && isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false)
+        {
+            isTileDesignatorHarvestingActive = true;
+            flattenButton.interactable = false;
+            miningButton.interactable = false;
+
+        }
+        else if (isTileDesignatorHarvestingActive == true)
+        {
+            isTileDesignatorHarvestingActive = false;
+            flattenButton.interactable = true;
+            miningButton.interactable = true;
+        }
+    }
+
     public void LayerSelection()
     {
-        if (Input.GetKey(KeyCode.Plus))
+        if (Input.GetKeyDown(KeyCode.KeypadPlus) && currentLayer >= 0)
         {
-            tilemap.color = Color.grey;
-            tilemap = tilemapList[currentLayer + 1];
-            Debug.Log(currentLayer);
+            tilemap.color = Color.gray;
+            currentLayer = currentLayer + 1;
+            tilemap = tilemapList[currentLayer];
             tilemap.color = Color.white;
+            tilemapList[0].color = Color.white;
+            if (currentLayer == 1)
+            {
+                tilemapList[0].color = Color.white;
+            }
         }
 
-        if (Input.GetKey(KeyCode.Minus))
+        if (Input.GetKeyDown(KeyCode.KeypadMinus) && currentLayer >= 1 )
         {
-            tilemap.color = Color.grey;
-            tilemap = tilemapList[currentLayer - 1];
-            Debug.Log(currentLayer);
+            tilemap.color = Color.gray;
+            currentLayer = currentLayer - 1;
+            tilemap = tilemapList[currentLayer];
             tilemap.color = Color.white;
+            if (currentLayer == 1)
+            {
+                tilemapList[0].color = Color.white;
+            }
         }
     }
 
