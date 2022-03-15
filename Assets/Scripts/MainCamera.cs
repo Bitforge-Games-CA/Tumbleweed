@@ -10,7 +10,7 @@ public class MainCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Camera.main.fieldOfView = 70;   
+        Camera.main.orthographicSize = 7.5f;   
     }
 
     // Update is called once per frame
@@ -27,11 +27,11 @@ public class MainCamera : MonoBehaviour
             Camera.main.transform.Translate(new Vector3(xAxisValue, yAxisValue, 0.0f));
 
             // zoom control
-            if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize < 15)
+            if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize < 15.5f)
             {
                 Camera.main.orthographicSize += Speed;
             }
-            if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize > 5)
+            if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize > 2.5f)
             {
                 Camera.main.orthographicSize -= Speed;
             }

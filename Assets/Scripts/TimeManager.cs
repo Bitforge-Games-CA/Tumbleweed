@@ -5,7 +5,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class TimeManager2 : MonoBehaviour
+public class TimeManager : MonoBehaviour
 {
     public Light2D sun2D;
     public Text dateTimeUI;

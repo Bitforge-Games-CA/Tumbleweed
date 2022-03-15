@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CharacterStats>
+	<Health>100</Health>
+	<Level>1</Level>
+	<MeleeDamage>10</MeleeDamage>
+</CharacterStats>
