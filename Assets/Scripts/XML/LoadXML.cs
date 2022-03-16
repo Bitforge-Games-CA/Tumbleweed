@@ -224,8 +224,6 @@ public class LoadXML : MonoBehaviour
 
         }
 
-        // more Data
-
         foreach (GameObject building in GameObject.FindGameObjectsWithTag("Building"))
         {
             if (building.name.Contains("Tent"))
@@ -246,9 +244,6 @@ public class LoadXML : MonoBehaviour
                 BD.BuildingIsRotatable = BDTXML.GetElementsByTagName("IsRotateable").Item(0).InnerText;
             }
         }
-
-
-
 
     }
 

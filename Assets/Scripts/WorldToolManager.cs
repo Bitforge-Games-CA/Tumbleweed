@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class WorldToolManager : MonoBehaviour
 {
+    public static WorldToolManager current; 
+
     public List<Vector3Int> designatedTilePosList;
 
     // TileDesignationFlattening()
@@ -43,6 +45,8 @@ public class WorldToolManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // instatiate the singleton
+        current = this;
         // find everything and build the layer list too
        tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
        selectionBoxGO = GameObject.FindGameObjectWithTag("SelectionBox");

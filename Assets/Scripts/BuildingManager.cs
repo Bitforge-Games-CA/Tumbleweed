@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BuildingManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject[] buildingList;
 
-    // Update is called once per frame
-    void Update()
+    // Build Methods
+
+    public void BuildTent()
     {
-        
+
     }
 }

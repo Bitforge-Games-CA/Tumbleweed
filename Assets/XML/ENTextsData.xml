@@ -20,9 +20,9 @@
 	<Building_00_Desc>Somewhere to rest your feet.</Building_00_Desc>
 
 	<!-- Tooltips -->
-	<Tooltip_00></Tooltip_00>
-	<Tooltip_01></Tooltip_01>
-	<Tooltip_02></Tooltip_02>
-	<Tooltip_03></Tooltip_03>
+	<Tooltip_00>Name</Tooltip_00>
+	<Tooltip_01>Description</Tooltip_01>
+	<Tooltip_02>Level</Tooltip_02>
+	<Tooltip_03>XP</Tooltip_03>
 
 </TextsData>
