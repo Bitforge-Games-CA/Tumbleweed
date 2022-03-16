@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    public bool Placed { get; private set; }
+    public bool Placed { get; set; }
     public BoundsInt BuildingSize;
-
 }

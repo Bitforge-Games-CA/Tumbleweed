@@ -17,71 +17,76 @@ public class BlueprintManager : MonoBehaviour
     public Building temp;
     private Vector3 prevPos;
 
+    public GameObject BuildingToPlace;
+
     // Unity Methods
     private void Awake()
     {
+        // instatiate the singleton
         current = this;
-    }
-
-    private void Start()
-    {
-        if(!temp)
-        {
-            return;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-
-            if (!temp.Placed)
-            {
-                Vector2 touchPos = Camera.main.WorldToScreenPoint(Input.mousePosition);
-                Vector3Int cellPos = GridLayout.LocalToCell(touchPos);
-
-                if (prevPos != cellPos)
-                {
-                    temp.transform.localPosition = GridLayout.CellToLocalInterpolated(cellPos + new Vector3(.3f, -0.1f, 0f));
-                    prevPos = cellPos;
-                }
-            }    
-        }
     }
 
     private void Update()
     {
+
         if (temp != null)
         {
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPos.z = 1.0f;
-            Vector3Int tilemapPos = WorldToolManager.current.tilemap.WorldToCell(worldPos);
-            temp.transform.position = WorldToolManager.current.tilemap.GetCellCenterWorld(tilemapPos);
+            Building building = BuildingToPlace.GetComponent<Building>();
 
-            SpriteRenderer SR = temp.GetComponent<SpriteRenderer>();
+            building.Placed = false;
 
-            SR.color = new Vector4 (0, 0, 1, 0.5f);
-
-            if (Input.GetKeyDown(KeyCode.Q) && SR.flipX == false)
+            if (building.Placed == false)
             {
-                SR.flipX = true;
-            } 
-            else if (Input.GetKeyDown(KeyCode.Q) && SR.flipX == true)
-            {
-                SR.flipX = false;
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                worldPos.z = 1.0f;
+                Vector3Int tilemapPos = WorldToolManager.current.tilemap.WorldToCell(worldPos);
+                temp.transform.position = WorldToolManager.current.tilemap.GetCellCenterWorld(tilemapPos);
+
+                SpriteRenderer SR = temp.GetComponent<SpriteRenderer>();
+
+                SR.color = new Vector4(0, 0, 1, 0.5f);
+
+                if (Input.GetKeyDown(KeyCode.Q) && SR.flipX == false)
+                {
+                    SR.flipX = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Q) && SR.flipX == true)
+                {
+                    SR.flipX = false;
+                }
+
+                if (Input.GetKeyDown(KeyCode.E) && SR.flipX == false)
+                {
+                    SR.flipX = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.E) && SR.flipX == true)
+                {
+                    SR.flipX = false;
+                }
+
+                if (Input.GetMouseButtonDown(1))
+                {
+                    building.Placed = true;
+
+                    if (SR.flipX == true)
+                    {
+                        Building finalBuilding = Instantiate(building, temp.transform.position, Quaternion.identity).GetComponent<Building>();
+                        SpriteRenderer SR2 = finalBuilding.GetComponent<SpriteRenderer>();
+                        SR2.flipX = true;
+                        Destroy(temp.gameObject);
+
+                    } 
+                    else if (SR.flipX == false)
+                    {
+                        Instantiate(building, temp.transform.position, Quaternion.identity).GetComponent<Building>();
+                        Destroy(temp.gameObject);
+                    }
+
+                }
+
+                //
+
             }
-
-            if  (Input.GetKeyDown(KeyCode.E) && SR.flipX == false)
-            {
-                SR.flipX = true;
-            } 
-            else if (Input.GetKeyDown(KeyCode.E) && SR.flipX == true)
-            {
-                SR.flipX = false;
-            }
-
-
-
-
-
         }
     }
 
@@ -128,11 +133,12 @@ public class BlueprintManager : MonoBehaviour
         Vector3Int tilemapPos = WorldToolManager.current.tilemap.WorldToCell(worldPos);
         tilemapPos.z = (int)1.0f;
 
+
+        BuildingToPlace = building;
+
         temp = Instantiate(building, tilemapPos, Quaternion.identity).GetComponent<Building>();
+
     }
-
-
-
 
 
     public enum TileType
