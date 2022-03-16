@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class WorldToolManager : MonoBehaviour
 {
-
     public List<Vector3Int> designatedTilePosList;
 
     // TileDesignationFlattening()
@@ -15,8 +14,6 @@ public class WorldToolManager : MonoBehaviour
     // SetTileFlattenDesignation
     public bool isTileDesignatorFlattenActive;
     public Toggle flattenButton;
-
-
 
     // TileDesignationMining()
     public Tilemap tilemap;
@@ -42,13 +39,11 @@ public class WorldToolManager : MonoBehaviour
     // LayerSelection()
     public List<Tilemap> tilemapList;
     public int currentLayer;
-    // TO DO
-    //
-    //
 
     // Start is called before the first frame update
     void Start()
     {
+        // find everything and build the layer list too
        tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
        selectionBoxGO = GameObject.FindGameObjectWithTag("SelectionBox");
        BuildLayerList();
@@ -79,7 +74,6 @@ public class WorldToolManager : MonoBehaviour
         }
 
         // Harvesting
-
         if (currentLayer != 1)
         {
             harvestButton.interactable = false;
@@ -94,6 +88,7 @@ public class WorldToolManager : MonoBehaviour
             TileDesignationHarvesting();
         }
 
+        // reset tools
         if (isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false && isTileDesignatorHarvestingActive == false)
         {
             // if it false hide
@@ -102,6 +97,7 @@ public class WorldToolManager : MonoBehaviour
             tilemap = tilemapList[currentLayer];
         }
 
+        // run layer selection
         LayerSelection();
 
     }

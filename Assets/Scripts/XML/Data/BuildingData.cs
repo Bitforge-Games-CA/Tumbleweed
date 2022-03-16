@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Xml;
+using System.Xml.Serialization;
 
+[XmlRoot("BuildingData")]
 public class BuildingData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // Info
+    [XmlElement("Name")]
+    public string BuildingName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [XmlElement("Description")]
+    public string BuildingDescription;
+
+
+
+    // Stats
+    [XmlElement("HealthScore")]
+    public string BuildingHealthScore;
+
+
+
+
+    // Properties
+    [XmlElement("IsRotateable")]
+    public string BuildingIsRotatable;
+
+
+
+
 }

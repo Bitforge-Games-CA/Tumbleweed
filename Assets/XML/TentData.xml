@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BuildingData>
+	<Info>
+		<Name></Name>
+		<Description></Description>
+	</Info>
+	<Stats>
+		<HealthScore>250</HealthScore>
+	</Stats>
+	<Properties>
+		<IsRotateable>true</IsRotateable>
+	</Properties>
+</BuildingData>

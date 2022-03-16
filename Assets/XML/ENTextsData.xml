@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<TextsData>
+	<!-- Abilities -->
+	<Ability_01_Name>Persuade</Ability_01_Name>
+	<Ability_01_Desc>Attempt to convince someone, boosting social modifiers</Ability_01_Desc>
+	<Ability_02_Name>Rally</Ability_02_Name>
+	<Ability_02_Desc>Inspire courage and admiration, boosting willpower and endurance.</Ability_02_Desc>
+
+	<!-- Skills -->
+	<Skill_00_Name>Flatten</Skill_00_Name>
+	<Skill_00_Desc>Digging a ditch will teach you a thing or two.</Skill_00_Desc>
+	<Skill_01_Name>Mine</Skill_01_Name>
+	<Skill_01_Desc>Ability to swing a pick, and hard.</Skill_01_Desc>
+	<Skill_02_Name>Forage</Skill_02_Name>
+	<Skill_02_Desc>The know-how of edible plants.</Skill_02_Desc>
+
+	<!-- Buildings -->
+	<Building_00_Name>Tent</Building_00_Name>
+	<Building_00_Desc>Somewhere to rest your feet.</Building_00_Desc>
+
+	<!-- Tooltips -->
+	<Tooltip_00></Tooltip_00>
+	<Tooltip_01></Tooltip_01>
+	<Tooltip_02></Tooltip_02>
+	<Tooltip_03></Tooltip_03>
+
+</TextsData>
