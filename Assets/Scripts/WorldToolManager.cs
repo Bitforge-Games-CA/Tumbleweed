@@ -42,9 +42,7 @@ public class WorldToolManager : MonoBehaviour
     public List<Tilemap> tilemapList;
     public int currentLayer;
     public List<Grid> gridList;
-    public List<Tilemap> placementList;
-    public Grid grid;
-    public Tilemap placementTilemap;
+    public Grid currentGrid;
 
 
     // Start is called before the first frame update
@@ -57,7 +55,6 @@ public class WorldToolManager : MonoBehaviour
        selectionBoxGO = GameObject.FindGameObjectWithTag("SelectionBox");
        BuildLayerList();
        BuildGridList();
-       BuildPlacementList();
        flattenButton = GameObject.FindGameObjectWithTag("Flatten Button").GetComponent<Toggle>();
        miningButton = GameObject.FindGameObjectWithTag("Mining Button").GetComponent<Toggle>();
        harvestButton = GameObject.FindGameObjectWithTag("Harvest Button").GetComponent<Toggle>();
@@ -366,8 +363,10 @@ public class WorldToolManager : MonoBehaviour
             tilemap.color = Color.gray;
             currentLayer = currentLayer + 1;
             tilemap = tilemapList[currentLayer];
+            currentGrid = gridList[currentLayer];
             tilemap.color = Color.white;
             tilemapList[0].color = Color.white;
+
             if (currentLayer == 1)
             {
                 tilemapList[0].color = Color.white;
@@ -379,8 +378,9 @@ public class WorldToolManager : MonoBehaviour
             tilemap.color = Color.gray;
             currentLayer = currentLayer - 1;
             tilemap = tilemapList[currentLayer];
-
+            currentGrid = gridList[currentLayer];
             tilemap.color = Color.white;
+
             if (currentLayer == 1)
             {
                 tilemapList[0].color = Color.white;
@@ -415,20 +415,6 @@ public class WorldToolManager : MonoBehaviour
         gridList.Add(GameObject.Find("Grid (3)").GetComponent<Grid>());
         gridList.Add(GameObject.Find("Grid (4)").GetComponent<Grid>());
         gridList.Add(GameObject.Find("Grid (5)").GetComponent<Grid>());
-    }
-
-    public void BuildPlacementList()
-    {
-
-        placementList = new List<Tilemap>();
-
-        placementList.Add(GameObject.Find("Tilemap 1 Placement").GetComponent<Tilemap>());
-        placementList.Add(GameObject.Find("Tilemap Placement").GetComponent<Tilemap>());
-        placementList.Add(GameObject.Find("Tilemap (1) Placement").GetComponent<Tilemap>());
-        placementList.Add(GameObject.Find("Tilemap (2) Placement").GetComponent<Tilemap>());
-        placementList.Add(GameObject.Find("Tilemap (3) Placement").GetComponent<Tilemap>());
-        placementList.Add(GameObject.Find("Tilemap (4) Placement").GetComponent<Tilemap>());
-        placementList.Add(GameObject.Find("Tilemap (5) Placement").GetComponent<Tilemap>());
     }
 
 }
