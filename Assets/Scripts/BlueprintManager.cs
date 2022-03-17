@@ -12,8 +12,6 @@ public class BlueprintManager : MonoBehaviour
     public Tilemap upperTilemap;
     public Tilemap lowerTilemap;
 
-    public static Dictionary<TileType, Tile> tileBases = new Dictionary<TileType, Tile>();
-
     public Building temp;
     private Vector3 prevPos;
 
@@ -21,6 +19,10 @@ public class BlueprintManager : MonoBehaviour
     public GameObject buildingToPlace;
 
     public bool cantBePlaced;
+    public List<Tile> tilesUnderBuilding;
+
+    public Vector3 MOUSE_POSITION;
+    public Vector3 TILEMAP_POSITION;
 
     // Unity Methods
     private void Awake()
@@ -31,7 +33,7 @@ public class BlueprintManager : MonoBehaviour
 
     private void Start()
     {
-       tileBases.Add(TileType.Empty, null);
+        Physics2D.autoSyncTransforms = true;
     }
 
     private void Update()
@@ -39,7 +41,6 @@ public class BlueprintManager : MonoBehaviour
         upperTilemap = WorldToolManager.current.tilemapList[WorldToolManager.current.currentLayer - 1];
         gridLayout = WorldToolManager.current.gridList[WorldToolManager.current.currentLayer - 1];
         lowerTilemap = WorldToolManager.current.tilemapList[WorldToolManager.current.currentLayer];
-
 
         if (temp != null)
         {
@@ -54,22 +55,37 @@ public class BlueprintManager : MonoBehaviour
                 Vector3Int tilemapPos = WorldToolManager.current.tilemap.WorldToCell(worldPos);
 
                 SR = temp.GetComponent<SpriteRenderer>();
-
+                
                 if (prevPos != tilemapPos)
                 {
                     temp.transform.position = WorldToolManager.current.tilemap.GetCellCenterWorld(tilemapPos);
-                    temp.transform.position += new Vector3(0.25f, 0.25f, 0);
-                    prevPos = tilemapPos;
 
                     bool placementFailed = false;
+
                     for (int i = 1; i < 13; i++)
                     {
-                        placementFailed = CheckBuildingArea(i);
+                        placementFailed = CheckBuildingAreaTiles(i);
+
                         if (placementFailed)
                         {
                             break;
                         }
                     }
+                   
+                    bool placementFailed2 = false;
+
+                    placementFailed2 = CheckBuildingAreaColliders();
+
+                    if (placementFailed2)
+                    {
+                        SR.color = new Vector4(1, 0, 0, 0.5f);
+                    } 
+                    else if (!placementFailed2)
+                    {
+                        SR.color = new Vector4(0, 0, 1, 0.5f);
+                    }
+
+                    prevPos = tilemapPos;
                 }
             }
 
@@ -96,21 +112,23 @@ public class BlueprintManager : MonoBehaviour
 
                 if (SR.flipX == true && cantBePlaced == false)
                 {
-                        Building finalBuilding = Instantiate(building, temp.transform.position, Quaternion.identity).GetComponent<Building>();
-                        SpriteRenderer SR2 = finalBuilding.GetComponent<SpriteRenderer>();
+                        Building Blueprint = Instantiate(building, new Vector3(temp.transform.position.x, temp.transform.position.y, 12), Quaternion.identity, GameObject.Find("Buildings").transform).GetComponent<Building>();
+                        Blueprint.BuildingWorldPosition.Set(Blueprint.transform.position.x, Blueprint.transform.position.y, Blueprint.transform.position.z);
+                        SpriteRenderer SR2 = Blueprint.GetComponent<SpriteRenderer>();
                         SR2.flipX = true;
+                        SR2.color = SR.color = new Vector4(0, 0, 1, 0.5f);
                         Destroy(temp.gameObject);
                 }
                 else if (SR.flipX == false && cantBePlaced == false)
                 {
-                        Instantiate(building, temp.transform.position, Quaternion.identity).GetComponent<Building>();
+                        Building Blueprint = Instantiate(building, new Vector3(temp.transform.position.x, temp.transform.position.y, 12), Quaternion.identity, GameObject.Find("Buildings").transform).GetComponent<Building>();
+                        Blueprint.BuildingWorldPosition.Set(Blueprint.transform.position.x, Blueprint.transform.position.y, Blueprint.transform.position.z);
+                        SpriteRenderer SR2 = Blueprint.GetComponent<SpriteRenderer>();
+                        SR2.color = SR.color = new Vector4(0, 0, 1, 0.5f);
                         Destroy(temp.gameObject);
+
                 }
-
             }
-
-                //
-
         }
     }
     
@@ -134,22 +152,6 @@ public class BlueprintManager : MonoBehaviour
         return array;
     }
 
-    public static void FillTiles(Tile[] array, TileType type)
-    {
-        for (int i = 0; i < array.Length; i++)
-        {
-            array[i] = tileBases[type];
-        }
-    }
-
-    public static void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
-    {
-        int size = area.size.x * area.size.y * area.size.z;
-        Tile[] tileArray = new Tile[size];
-        FillTiles(tileArray, type);
-        tilemap.SetTilesBlock(area, tileArray);
-    }
-
     // Building Placement
 
     public void InitializeWithBuilding(GameObject building)
@@ -157,8 +159,6 @@ public class BlueprintManager : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int tilemapPos = upperTilemap.WorldToCell(worldPos);
         tilemapPos.z = (int)1.0f;
-
-        Debug.Log(tilemapPos);
 
         buildingToPlace = building;
 
@@ -173,40 +173,54 @@ public class BlueprintManager : MonoBehaviour
     //
     // Helper Methods
 
-    public bool CheckBuildingArea(int level)
+    public bool CheckBuildingAreaTiles(int level)
     {
         BoundsInt buildingArea = temp.BuildingSize;
-        temp.BuildingSize.position = upperTilemap.WorldToCell(temp.gameObject.transform.position);
-        temp.BuildingSize.position += new Vector3Int(0, 0, level);
+        temp.BuildingWorldPosition = temp.gameObject.transform.position;
+        temp.BuildingSize.position = upperTilemap.WorldToCell(temp.BuildingWorldPosition);
+        temp.BuildingSize.position += new Vector3Int(-1, -1, level);
 
-        Debug.Log(buildingArea);
+        //buildingArea.position = new Vector3Int((int)temp.transform.position.x, (int)temp.transform.position.y, 1);
 
-        Tile[] upperArray = GetTilesBlock(buildingArea, upperTilemap);
+        MOUSE_POSITION = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // magic number 2.125f is actually with in a range of 1.000f - 2.375f
+        //  value correction 1
+        MOUSE_POSITION.z = 1.0f;
+
+        // find the tilemapPos and set the selectinBox.position
+        TILEMAP_POSITION = upperTilemap.WorldToCell(MOUSE_POSITION);
+
+
+        TileBase[] upperArray = upperTilemap.GetTilesBlock(buildingArea);
+
 
         foreach (Tile t in upperArray) 
         {
-            Debug.Log(t);
-
             if (t != null)
             {
-                Debug.Log("TileFound: " + t);
-                SR.color = Color.red;
-                break;
+                tilesUnderBuilding.Add(t);
+                SR.color = new Vector4(1, 0, 0, 0.5f);
+                return cantBePlaced = true;
             }
-            SR.color = new Vector4(0, 0, 1, 0.5f);
-            return cantBePlaced = false;
+       
         }
-
-        return cantBePlaced = true;
+        tilesUnderBuilding.Clear();
+        SR.color = new Vector4(0, 0, 1, 0.5f);
+        return cantBePlaced = false;
    }
 
-
-    public enum TileType
+    public bool CheckBuildingAreaColliders()
     {
-        Empty,
-        Filled
+
+        PolygonCollider2D PC2D = temp.GetComponent<PolygonCollider2D>();
+
+        if (!PC2D.IsTouchingLayers(LayerMask.GetMask("Building")))
+        {
+            return cantBePlaced = false;
+        }
+        Debug.Log("touching");
+        return cantBePlaced = true;
     }
-
-
 
 }

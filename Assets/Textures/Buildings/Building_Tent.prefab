@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 8499543236964069127}
   - component: {fileID: 7496675317331544965}
   - component: {fileID: 1398837817390700707}
-  m_Layer: 0
+  - component: {fileID: -1062857422725137867}
+  - component: {fileID: -1209215448861244831}
+  m_Layer: 6
   m_Name: Building_Tent
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -97,4 +99,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildingSize:
     m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 4, y: 3, z: 1}
+    m_Size: {x: 3, y: 2, z: 1}
+--- !u!60 &-1062857422725137867
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971337412898962735}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.4221921, y: 0.6604767}
+      - {x: 0.017501771, y: 0.38800526}
+      - {x: -0.7418263, y: 0.12833071}
+      - {x: -1.0030191, y: -0.023114204}
+      - {x: -1.1579752, y: -0.2474122}
+      - {x: -0.77274144, y: -0.4421854}
+      - {x: -0.5484432, y: -0.56761694}
+      - {x: -0.31169605, y: -0.6793642}
+      - {x: 0.41173947, y: -0.3262434}
+      - {x: 0.7941302, y: -0.123705864}
+      - {x: 1.038999, y: 0.020651817}
+      - {x: 1.0438114, y: 0.03719759}
+      - {x: 1.0368196, y: 0.028495312}
+      - {x: 0.55539954, y: 0.3864441}
+--- !u!50 &-1209215448861244831
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971337412898962735}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
