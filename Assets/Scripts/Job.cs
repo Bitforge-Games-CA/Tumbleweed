@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class Job : ScriptableObject
 {
-    public int JobNum;
-    public Vector3 JobPos;
-    public string JobSprite;
-
-    public Job(Vector3 pos)
-    {
-        JobPos = pos;
-    }
+    public int JobNum { get; set; }
+    public string JobType;
+    public List<Vector3Int> JobPositions;
 
 }

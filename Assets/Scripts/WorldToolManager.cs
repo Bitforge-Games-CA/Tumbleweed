@@ -47,6 +47,13 @@ public class WorldToolManager : MonoBehaviour
     public Vector3Int AddedTilePos;
     public Vector3Int RemovedTilePos;
 
+    // SetTileDesignationBuilding()
+    public bool isTileDesignatorBuildingActive;
+    public Toggle buildButton;
+
+    // SetTileDesignationCancelBuilding()
+    public bool isTileDesignatorCancelBuildingActive;
+    public Toggle cancelBuildButton;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +68,8 @@ public class WorldToolManager : MonoBehaviour
         flattenButton = GameObject.FindGameObjectWithTag("Flatten Button").GetComponent<Toggle>();
         miningButton = GameObject.FindGameObjectWithTag("Mining Button").GetComponent<Toggle>();
         harvestButton = GameObject.FindGameObjectWithTag("Harvest Button").GetComponent<Toggle>();
+        buildButton = GameObject.FindGameObjectWithTag("Build Button").GetComponent<Toggle>();
+        cancelBuildButton = GameObject.FindGameObjectWithTag("Cancel Build Button").GetComponent<Toggle>();
     }
 
     // Update is called once per frame
@@ -90,7 +99,7 @@ public class WorldToolManager : MonoBehaviour
             harvestButton.interactable = false;
 
         }
-        else if (currentLayer == 1 && isTileDesignatorFlattenActive == false && isTileDesignatorMiningActive == false)
+        else if (currentLayer == 1 && isTileDesignatorFlattenActive == false && isTileDesignatorMiningActive == false && isTileDesignatorBuildingActive == false && isTileDesignatorCancelBuildingActive == false)
         {
             harvestButton.interactable = true;
         }
@@ -157,8 +166,8 @@ public class WorldToolManager : MonoBehaviour
 
 
                         AddedTilePos = tilemapPos;
-                        JobManager2.current.ListUpdatedAdd = false;
-                        JobManager2.current.IsFlatten = true;
+                        JobManager.current.ListUpdatedAdd = false;
+                        JobManager.current.IsFlatten = true;
                     }
                     break;
                 }
@@ -174,7 +183,7 @@ public class WorldToolManager : MonoBehaviour
                         miningTilePosList.Remove(tilemapPos);
 
                         RemovedTilePos = tilemapPos;
-                        JobManager2.current.ListUpdatedRemove = false;
+                        JobManager.current.ListUpdatedRemove = false;
                     }
                     break;
                 }
@@ -194,6 +203,8 @@ public class WorldToolManager : MonoBehaviour
             isTileDesignatorFlattenActive = true;
             miningButton.interactable = false;
             harvestButton.interactable = false;
+            buildButton.interactable = false;
+            cancelBuildButton.interactable = false;
 
         }
         else if (isTileDesignatorFlattenActive == true)
@@ -201,6 +212,8 @@ public class WorldToolManager : MonoBehaviour
             isTileDesignatorFlattenActive = false;
             miningButton.interactable = true;
             harvestButton.interactable = true;
+            buildButton.interactable = true;
+            cancelBuildButton.interactable = true;
         }
 
     }
@@ -245,8 +258,8 @@ public class WorldToolManager : MonoBehaviour
                         designatedTilePosList.Add(tilemapPos);
 
                         AddedTilePos = tilemapPos;
-                        JobManager2.current.ListUpdatedAdd = false;
-                        JobManager2.current.IsMining = true;
+                        JobManager.current.ListUpdatedAdd = false;
+                        JobManager.current.IsMining = true;
                     }
                     break;
                 }
@@ -261,7 +274,7 @@ public class WorldToolManager : MonoBehaviour
                         designatedTilePosList.Remove(tilemapPos);
 
                         RemovedTilePos = tilemapPos;
-                        JobManager2.current.ListUpdatedRemove = false;
+                        JobManager.current.ListUpdatedRemove = false;
                     }
                     break;
                 }
@@ -281,6 +294,8 @@ public class WorldToolManager : MonoBehaviour
             isTileDesignatorMiningActive = true;
             flattenButton.interactable = false;
             harvestButton.interactable = false;
+            buildButton.interactable = false;
+            cancelBuildButton.interactable = false;
 
         }
         else if (isTileDesignatorMiningActive == true)
@@ -288,6 +303,8 @@ public class WorldToolManager : MonoBehaviour
             isTileDesignatorMiningActive = false;
             flattenButton.interactable = true;
             harvestButton.interactable = true;
+            buildButton.interactable = true;
+            cancelBuildButton.interactable = true;
         }
     }
 
@@ -328,6 +345,10 @@ public class WorldToolManager : MonoBehaviour
                         tilemap.SetColor(tilemapPos, new Vector4(0.75f, 0, 0, 1));
                         designatedTilePosList.Add(tilemapPos);
                         harvestTilePosList.Add(tilemapPos);
+
+                        AddedTilePos = tilemapPos;
+                        JobManager.current.ListUpdatedAdd = false;
+                        JobManager.current.IsHarvesting = true;
                     }
                     break;
                 }
@@ -341,6 +362,8 @@ public class WorldToolManager : MonoBehaviour
                         designatedTilePosList.Remove(tilemapPos);
                         harvestTilePosList.Remove(tilemapPos);
 
+                        RemovedTilePos = tilemapPos;
+                        JobManager.current.ListUpdatedRemove = false;
                     }
                     break;
                 }
@@ -353,11 +376,6 @@ public class WorldToolManager : MonoBehaviour
         }
     }
 
-
-
-
-
-
     public void SetTileDesignationHarvesting()
     {
         if (isTileDesignatorHarvestingActive == false && isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false)
@@ -365,6 +383,8 @@ public class WorldToolManager : MonoBehaviour
             isTileDesignatorHarvestingActive = true;
             flattenButton.interactable = false;
             miningButton.interactable = false;
+            buildButton.interactable = false;
+            cancelBuildButton.interactable = false;
 
         }
         else if (isTileDesignatorHarvestingActive == true)
@@ -372,6 +392,50 @@ public class WorldToolManager : MonoBehaviour
             isTileDesignatorHarvestingActive = false;
             flattenButton.interactable = true;
             miningButton.interactable = true;
+            buildButton.interactable = true;
+            cancelBuildButton.interactable = true;
+        }
+    }
+
+    public void SetTileDesignationBuilding()
+    {
+        if (isTileDesignatorHarvestingActive == false && isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false && isTileDesignatorBuildingActive == false && isTileDesignatorCancelBuildingActive == false)
+        {
+            isTileDesignatorBuildingActive = true;
+            flattenButton.interactable = false;
+            miningButton.interactable = false;
+            harvestButton.interactable = false;
+            cancelBuildButton.interactable = false;
+
+        }
+        else if (isTileDesignatorBuildingActive == true)
+        {
+            isTileDesignatorBuildingActive = false;
+            flattenButton.interactable = true;
+            miningButton.interactable = true;
+            cancelBuildButton.interactable = true;
+            harvestButton.interactable = true;
+        }
+    }
+
+    public void SetTileDesignationCancelBuilding()
+    {
+        if (isTileDesignatorHarvestingActive == false && isTileDesignatorMiningActive == false && isTileDesignatorFlattenActive == false && isTileDesignatorBuildingActive == false && isTileDesignatorCancelBuildingActive == false)
+        {
+            isTileDesignatorCancelBuildingActive = true;
+            flattenButton.interactable = false;
+            miningButton.interactable = false;
+            buildButton.interactable = false;
+            harvestButton.interactable = false;
+
+        }
+        else if (isTileDesignatorCancelBuildingActive == true)
+        {
+            isTileDesignatorCancelBuildingActive = false;
+            flattenButton.interactable = true;
+            miningButton.interactable = true;
+            harvestButton.interactable = true;
+            buildButton.interactable = true;
         }
     }
 

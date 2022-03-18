@@ -5,7 +5,7 @@ OcclusionCullingSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_OcclusionBakeSettings:
-    smallestOccluder: 5
+    smallestOccluder: 1
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: 00000000000000000000000000000000
@@ -123,36 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &29594640
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 29594641}
-  m_Layer: 0
-  m_Name: TestObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &29594641
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29594640}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 43.89337, y: -46.426735, z: -205.6934}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &39586990
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +554,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1515444496}
         m_TargetAssemblyTypeName: WorldToolManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetTileDesignationCancelBuilding
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1088,7 +1058,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1839735485 &290508432
 Tilemap:
@@ -1173,7 +1143,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
-  m_Mode: 1
+  m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!4 &290508434
@@ -1408,7 +1378,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1515444496}
         m_TargetAssemblyTypeName: WorldToolManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetTileDesignationBuilding
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2250,7 +2220,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1839735485 &656985604
 Tilemap:
@@ -2335,7 +2305,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
-  m_Mode: 1
+  m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!4 &656985606
@@ -2369,7 +2339,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1839735485 &662387403
 Tilemap:
@@ -2454,7 +2424,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
-  m_Mode: 1
+  m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!4 &662387405
@@ -3084,7 +3054,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1839735485 &1043846490
 Tilemap:
@@ -3169,7 +3139,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
-  m_Mode: 1
+  m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!4 &1043846492
@@ -3512,7 +3482,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1839735485 &1197116498
 Tilemap:
@@ -3597,7 +3567,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
-  m_Mode: 1
+  m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!4 &1197116500
@@ -4357,15 +4327,13 @@ MonoBehaviour:
   JobsListMine: []
   JobsListHarvest: []
   PositionsList: []
+  PrevPositionsList: []
   ListUpdatedAdd: 1
   ListUpdatedRemove: 1
-  AddsInARow: 0
   IsFlatten: 0
   IsMining: 0
-  isHarvesting: 0
-  AddsInARowFlatten: 0
-  AddsInARowMining: 0
-  AddsInARowHarvesting: 0
+  IsHarvesting: 0
+  CurrentJob: {fileID: 0}
 --- !u!1 &1430757912
 GameObject:
   m_ObjectHideFlags: 0
@@ -4594,6 +4562,10 @@ MonoBehaviour:
   currentGrid: {fileID: 0}
   AddedTilePos: {x: 0, y: 0, z: 0}
   RemovedTilePos: {x: 0, y: 0, z: 0}
+  isTileDesignatorBuildingActive: 0
+  buildButton: {fileID: 0}
+  isTileDesignatorCancelBuildingActive: 0
+  cancelBuildButton: {fileID: 0}
 --- !u!4 &1515444497
 Transform:
   m_ObjectHideFlags: 0
@@ -5024,7 +4996,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1839735485 &1674160102
 Tilemap:
@@ -5109,7 +5081,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
-  m_Mode: 1
+  m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!4 &1674160104
@@ -5837,7 +5809,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1839735485 &1923359178
 Tilemap:

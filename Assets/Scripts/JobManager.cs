@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class JobManager2 : MonoBehaviour
+public class JobManager : MonoBehaviour
 {
 
-    public static JobManager2 current;
+    public static JobManager current;
 
-    public List<Job2> JobsListAll = new List<Job2>();
-    public List<Job2> JobsListFlatten = new List<Job2>();
-    public List<Job2> JobsListMine = new List<Job2>();
-    public List<Job2> JobsListHarvest = new List<Job2>();
+    public List<Job> JobsListAll = new List<Job>();
+    public List<Job> JobsListFlatten = new List<Job>();
+    public List<Job> JobsListMine = new List<Job>();
+    public List<Job> JobsListHarvest = new List<Job>();
 
     public List<Vector3Int> PositionsList;
     public List<Vector3Int> PrevPositionsList;
@@ -20,9 +21,9 @@ public class JobManager2 : MonoBehaviour
 
     public bool IsFlatten = false;
     public bool IsMining = false;
-    public bool isHarvesting = false;
+    public bool IsHarvesting = false;
 
-    public Job2 CurrentJob;
+    public Job CurrentJob;
 
 
     // Start is called before the first frame update
@@ -40,7 +41,6 @@ public class JobManager2 : MonoBehaviour
 
         if (WorldToolManager.current.AddedTilePos != null && ListUpdatedAdd == false && Input.GetMouseButton(1))
         {
-            Debug.Log("added tile to positions list");
             PositionsList.Add(WorldToolManager.current.AddedTilePos);
             ListUpdatedAdd = true;
 
@@ -49,19 +49,38 @@ public class JobManager2 : MonoBehaviour
 
         if (WorldToolManager.current.AddedTilePos != null && ListUpdatedAdd == true && Input.GetMouseButtonUp(1))
         {
-            Job2 CurrentJob = ScriptableObject.Instantiate<Job2>(ScriptableObject.CreateInstance<Job2>());
+            Job CurrentJob = ScriptableObject.Instantiate<Job>(ScriptableObject.CreateInstance<Job>());
             CurrentJob.JobPositions = new List<Vector3Int>(PositionsList);
+
+            if (IsFlatten == true)
+            {
+                CurrentJob.JobType = "Flattening";
+                IsFlatten = false;
+            }
+
+
+            if (IsMining == true)
+            {
+                CurrentJob.JobType = "Mining";
+                IsMining = false;
+            }
+
+
+            if (IsHarvesting == true)
+            {
+                CurrentJob.JobType = "Harvesting";
+                IsHarvesting = false;
+            }
 
             JobsListAll.Add(CurrentJob);
 
             PositionsList.Clear();
-
         }
 
         if (WorldToolManager.current.RemovedTilePos != null && ListUpdatedRemove == false && Input.GetMouseButton(0))
         {
 
-            foreach (Job2 job in JobsListAll)
+            foreach (Job job in JobsListAll)
             {
                 if (job.JobPositions.Contains(WorldToolManager.current.RemovedTilePos))
                 {
@@ -78,7 +97,7 @@ public class JobManager2 : MonoBehaviour
 
     // helper methods
 
-    public void RemoveJobFromListAll(Job2 job)
+    public void RemoveJobFromListAll(Job job)
     {
         if (job.JobPositions.Count == 0)
         {
@@ -87,22 +106,22 @@ public class JobManager2 : MonoBehaviour
 
     }
 
-    public void CleanJobListAll()
+    public void CleanJobListAll() 
     {
-        foreach(Job2 job in JobsListAll)
+        var jobs = JobsListAll.ToList();
+        for (int i = 0; i < jobs.Count; i++)
         {
+            var job = jobs[i];
             if (job.JobPositions.Count == 0)
-            {
                 JobsListAll.Remove(job);
-                break;
-            }
         }
     }
 
-    public Job2 JobFromPosList(List<Vector3Int> positions)
+
+    public Job JobFromPosList(List<Vector3Int> positions)
     {
 
-        Job2 newJob = ScriptableObject.Instantiate<Job2>(ScriptableObject.CreateInstance<Job2>());
+        Job newJob = ScriptableObject.Instantiate<Job>(ScriptableObject.CreateInstance<Job>());
         newJob.JobPositions = positions;
         return newJob;
     }
