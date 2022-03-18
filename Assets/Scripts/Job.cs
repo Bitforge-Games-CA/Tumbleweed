@@ -8,7 +8,6 @@ public class Job : ScriptableObject
     public Vector3 JobPos;
     public string JobSprite;
 
-
     public Job(Vector3 pos)
     {
         JobPos = pos;

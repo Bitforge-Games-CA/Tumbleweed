@@ -157,8 +157,8 @@ public class WorldToolManager : MonoBehaviour
 
 
                         AddedTilePos = tilemapPos;
-                        JobsManager.current.ListUpdatedAdd = false;
-                        JobsManager.current.IsFlatten = false;
+                        JobManager2.current.ListUpdatedAdd = false;
+                        JobManager2.current.IsFlatten = true;
                     }
                     break;
                 }
@@ -174,7 +174,7 @@ public class WorldToolManager : MonoBehaviour
                         miningTilePosList.Remove(tilemapPos);
 
                         RemovedTilePos = tilemapPos;
-                        JobsManager.current.ListUpdatedRemove = false;
+                        JobManager2.current.ListUpdatedRemove = false;
                     }
                     break;
                 }
@@ -243,6 +243,10 @@ public class WorldToolManager : MonoBehaviour
                         tilemap.SetColor(tilemapPos, Color.red);
                         miningTilePosList.Add(tilemapPos);
                         designatedTilePosList.Add(tilemapPos);
+
+                        AddedTilePos = tilemapPos;
+                        JobManager2.current.ListUpdatedAdd = false;
+                        JobManager2.current.IsMining = true;
                     }
                     break;
                 }
@@ -255,6 +259,9 @@ public class WorldToolManager : MonoBehaviour
                         tilemap.SetColor(tilemapPos, Color.white);
                         miningTilePosList.Remove(tilemapPos);
                         designatedTilePosList.Remove(tilemapPos);
+
+                        RemovedTilePos = tilemapPos;
+                        JobManager2.current.ListUpdatedRemove = false;
                     }
                     break;
                 }
