@@ -483,16 +483,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e13dbc271d5e37459f11cfd70d25058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridLayout: {fileID: 0}
-  upperTilemap: {fileID: 0}
-  lowerTilemap: {fileID: 0}
-  temp: {fileID: 0}
+  GridLayout: {fileID: 0}
+  UpperTilemap: {fileID: 0}
+  LowerTilemap: {fileID: 0}
+  Temp: {fileID: 0}
+  TilemapPos: {x: 0, y: 0, z: 0}
   SR: {fileID: 0}
-  buildingToPlace: {fileID: 0}
-  cantBePlaced: 0
-  tilesUnderBuilding: []
+  BuildingToPlace: {fileID: 0}
+  CantBePlaced: 0
+  CantBePlaced2: 0
+  TilesUnderBuilding: []
+  TilesPosUnderBuilding: []
   MOUSE_POSITION: {x: 0, y: 0, z: 0}
   TILEMAP_POSITION: {x: 0, y: 0, z: 0}
+  PrevBlueprint: {fileID: 0}
+  BlueprintList: []
 --- !u!1 &224976229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,7 +2630,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1879825572}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &902712347
 MonoBehaviour:
@@ -3431,8 +3436,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  width: 3
-  height: 3
+  width: 49
+  height: 49
   scale: 0.125
   octaves: 2
   persistence: 0.5
@@ -4304,6 +4309,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367629351}
   m_CullTransparentMesh: 1
+--- !u!1 &1400075174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1400075175}
+  - component: {fileID: 1400075176}
+  m_Layer: 0
+  m_Name: JobsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1400075175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400075174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1879825572}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1400075176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400075174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d570bc86a9db6bd49b5a1a6ef00e4fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JobsListAll: []
+  JobsListFlatten: []
+  JobsListMine: []
+  JobsListHarvest: []
+  ListUpdatedAdd: 1
+  ListUpdatedRemove: 1
+  AddsInARow: 0
+  IsFlatten: 0
+  IsMining: 0
+  isHarvesting: 0
+  AddsInARowFlatten: 0
+  AddsInARowMining: 0
+  AddsInARowHarvesting: 0
 --- !u!1 &1430757912
 GameObject:
   m_ObjectHideFlags: 0
@@ -4530,6 +4591,8 @@ MonoBehaviour:
   currentLayer: 0
   gridList: []
   currentGrid: {fileID: 0}
+  AddedTilePos: {x: 0, y: 0, z: 0}
+  RemovedTilePos: {x: 0, y: 0, z: 0}
 --- !u!4 &1515444497
 Transform:
   m_ObjectHideFlags: 0
@@ -4543,7 +4606,7 @@ Transform:
   m_Children:
   - {fileID: 1252935269}
   m_Father: {fileID: 1879825572}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1524707223
 GameObject:
@@ -5497,6 +5560,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 200839685}
+  - {fileID: 1400075175}
   - {fileID: 1515444497}
   - {fileID: 902712346}
   m_Father: {fileID: 0}

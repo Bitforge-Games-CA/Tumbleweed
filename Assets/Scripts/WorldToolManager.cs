@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class WorldToolManager : MonoBehaviour
 {
-    public static WorldToolManager current; 
+    public static WorldToolManager current;
 
     public List<Vector3Int> designatedTilePosList;
 
@@ -44,20 +44,23 @@ public class WorldToolManager : MonoBehaviour
     public List<Grid> gridList;
     public Grid currentGrid;
 
+    public Vector3Int AddedTilePos;
+    public Vector3Int RemovedTilePos;
+
 
     // Start is called before the first frame update
     void Start()
     {
-       // instatiate the singleton
-       current = this;
-       // find everything and build the lists too
-       tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
-       selectionBoxGO = GameObject.FindGameObjectWithTag("SelectionBox");
-       BuildLayerList();
-       BuildGridList();
-       flattenButton = GameObject.FindGameObjectWithTag("Flatten Button").GetComponent<Toggle>();
-       miningButton = GameObject.FindGameObjectWithTag("Mining Button").GetComponent<Toggle>();
-       harvestButton = GameObject.FindGameObjectWithTag("Harvest Button").GetComponent<Toggle>();
+        // instatiate the singleton
+        current = this;
+        // find everything and build the lists too
+        tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
+        selectionBoxGO = GameObject.FindGameObjectWithTag("SelectionBox");
+        BuildLayerList();
+        BuildGridList();
+        flattenButton = GameObject.FindGameObjectWithTag("Flatten Button").GetComponent<Toggle>();
+        miningButton = GameObject.FindGameObjectWithTag("Mining Button").GetComponent<Toggle>();
+        harvestButton = GameObject.FindGameObjectWithTag("Harvest Button").GetComponent<Toggle>();
     }
 
     // Update is called once per frame
@@ -86,7 +89,8 @@ public class WorldToolManager : MonoBehaviour
         {
             harvestButton.interactable = false;
 
-        } else if (currentLayer == 1 && isTileDesignatorFlattenActive == false && isTileDesignatorMiningActive == false)
+        }
+        else if (currentLayer == 1 && isTileDesignatorFlattenActive == false && isTileDesignatorMiningActive == false)
         {
             harvestButton.interactable = true;
         }
@@ -114,66 +118,73 @@ public class WorldToolManager : MonoBehaviour
     public void TileDesignationFlattening()
     {
 
-            // get the mouse position and set it equal to worldPos
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // get the mouse position and set it equal to worldPos
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // magic number 2.125f is actually with in a range of 1.000f - 2.375f
-            //  value correction 1
-            worldPos.z = 1.0f;
+        // magic number 2.125f is actually with in a range of 1.000f - 2.375f
+        //  value correction 1
+        worldPos.z = 1.0f;
 
-            // find the tilemapPos and set the selectinBox.position
-            Vector3Int tilemapPos = tilemap.WorldToCell(worldPos);
-            //selectionBoxPos.position = tilemapPos;
+        // find the tilemapPos and set the selectinBox.position
+        Vector3Int tilemapPos = tilemap.WorldToCell(worldPos);
+        //selectionBoxPos.position = tilemapPos;
 
 
-            // loop thru the z offsets to find the tile
-            while (worldPos.z <= 2.375f)
+        // loop thru the z offsets to find the tile
+        while (worldPos.z <= 2.5f)
+        {
+            // find the tilemapPos
+            tilemapPos = tilemap.WorldToCell(worldPos);
+
+            // print variables
+            //Debug.Log("wP: " + worldPos);
+            //Debug.Log("tmP: " + tilemapPos);
+
+            // if theres a tile, do X
+            if (selectedTile = (Tile)tilemap.GetTile(tilemapPos))
             {
-                // find the tilemapPos
-                tilemapPos = tilemap.WorldToCell(worldPos);
+                designatedTilePos = tilemapPos;
 
-                // print variables
-                //Debug.Log("wP: " + worldPos);
-                //Debug.Log("tmP: " + tilemapPos);
-
-                // if theres a tile, do X
-                if (selectedTile = (Tile)tilemap.GetTile(tilemapPos))
+                while (Input.GetMouseButton(1))
                 {
-                    designatedTilePos = tilemapPos;
 
-                    while (Input.GetMouseButton(1))
+                    if (!flattenTilePosList.Contains(tilemapPos) && !designatedTilePosList.Contains(tilemapPos))
                     {
+                        tilemap.SetTileFlags(tilemapPos, TileFlags.None);
+                        tilemap.SetColor(tilemapPos, Color.blue);
+                        flattenTilePosList.Add(tilemapPos);
+                        designatedTilePosList.Add(tilemapPos);
 
-                        if (!flattenTilePosList.Contains(tilemapPos) && !designatedTilePosList.Contains(tilemapPos))
-                        {
-                            tilemap.SetTileFlags(tilemapPos, TileFlags.None);
-                            tilemap.SetColor(tilemapPos, Color.blue);
-                            flattenTilePosList.Add(tilemapPos);
-                            designatedTilePosList.Add(tilemapPos);
-                        }
-                        break;
-                    }
 
-                    while (Input.GetMouseButton(0))
-                    {
-                        if (flattenTilePosList.Contains(tilemapPos) && designatedTilePosList.Contains(tilemapPos) && !miningTilePosList.Contains(tilemapPos))
-
-                        {
-                            tilemap.SetTileFlags(tilemapPos, TileFlags.None);
-                            tilemap.SetColor(tilemapPos, Color.white);
-                            flattenTilePosList.Remove(tilemapPos);
-                            designatedTilePosList.Remove(tilemapPos);
-                            miningTilePosList.Remove(tilemapPos);
-                        }
-                        break;
+                        AddedTilePos = tilemapPos;
+                        JobsManager.current.ListUpdatedAdd = false;
+                        JobsManager.current.IsFlatten = false;
                     }
                     break;
                 }
 
-                // incremement for
-                // each offset level
-                worldPos.z += .125f;
+                while (Input.GetMouseButton(0))
+                {
+                    if (flattenTilePosList.Contains(tilemapPos) && designatedTilePosList.Contains(tilemapPos) && !miningTilePosList.Contains(tilemapPos))
+                    {
+                        tilemap.SetTileFlags(tilemapPos, TileFlags.None);
+                        tilemap.SetColor(tilemapPos, Color.white);
+                        flattenTilePosList.Remove(tilemapPos);
+                        designatedTilePosList.Remove(tilemapPos);
+                        miningTilePosList.Remove(tilemapPos);
+
+                        RemovedTilePos = tilemapPos;
+                        JobsManager.current.ListUpdatedRemove = false;
+                    }
+                    break;
+                }
+                break;
             }
+
+            // incremement for
+            // each offset level
+            worldPos.z += .125f;
+        }
     }
 
     public void SetTileDesignationFlattening()
@@ -197,64 +208,64 @@ public class WorldToolManager : MonoBehaviour
     public void TileDesignationMining()
     {
 
-            // get the mouse position and set it equal to worldPos
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // get the mouse position and set it equal to worldPos
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // magic number 2.125f is actually with in a range of 1.000f - 2.3275f
-            //  value correction 1
-            worldPos.z = 1.0f;
+        // magic number 2.125f is actually with in a range of 1.000f - 2.3275f
+        //  value correction 1
+        worldPos.z = 1.0f;
 
-            // find the tilemapPos and set the selectinBox.position
-            Vector3Int tilemapPos = tilemap.WorldToCell(worldPos);
-            //selectionBoxPos.position = tilemapPos;
+        // find the tilemapPos and set the selectinBox.position
+        Vector3Int tilemapPos = tilemap.WorldToCell(worldPos);
+        //selectionBoxPos.position = tilemapPos;
 
 
-            // loop thru the z offsets to find the tile
-            while (worldPos.z <= 2.375f)
+        // loop thru the z offsets to find the tile
+        while (worldPos.z <= 2.5f)
+        {
+            // find the tilemapPos
+            tilemapPos = tilemap.WorldToCell(worldPos);
+
+            // print variables
+            //Debug.Log("wP: " + worldPos);
+            //Debug.Log("tmP: " + tilemapPos);
+
+            // if theres a tile, do X
+            if (selectedTile = (Tile)tilemap.GetTile(tilemapPos))
             {
-                // find the tilemapPos
-                tilemapPos = tilemap.WorldToCell(worldPos);
+                designatedTilePos = tilemapPos;
 
-                // print variables
-                //Debug.Log("wP: " + worldPos);
-                //Debug.Log("tmP: " + tilemapPos);
-
-                // if theres a tile, do X
-                if (selectedTile = (Tile)tilemap.GetTile(tilemapPos))
+                while (Input.GetMouseButton(1))
                 {
-                    designatedTilePos = tilemapPos;
-
-                    while (Input.GetMouseButton(1))
+                    if (!miningTilePosList.Contains(tilemapPos) && !designatedTilePosList.Contains(tilemapPos))
                     {
-                        if (!miningTilePosList.Contains(tilemapPos) && !designatedTilePosList.Contains(tilemapPos))
-                        {
-                            tilemap.SetTileFlags(tilemapPos, TileFlags.None);
-                            tilemap.SetColor(tilemapPos, Color.red);
-                            miningTilePosList.Add(tilemapPos);
-                            designatedTilePosList.Add(tilemapPos);
-                        }
-                        break;
-                    }
-
-                    while (Input.GetMouseButton(0))
-                    {
-                        if (miningTilePosList.Contains(tilemapPos) && designatedTilePosList.Contains(tilemapPos) && !flattenTilePosList.Contains(tilemapPos))
-                        {
-                            tilemap.SetTileFlags(tilemapPos, TileFlags.None);
-                            tilemap.SetColor(tilemapPos, Color.white);
-                            miningTilePosList.Remove(tilemapPos);
-                            designatedTilePosList.Remove(tilemapPos);
-                        }
-                        break;
+                        tilemap.SetTileFlags(tilemapPos, TileFlags.None);
+                        tilemap.SetColor(tilemapPos, Color.red);
+                        miningTilePosList.Add(tilemapPos);
+                        designatedTilePosList.Add(tilemapPos);
                     }
                     break;
                 }
 
-                // incremement for
-                // each offset level
-                worldPos.z += .125f;
+                while (Input.GetMouseButton(0))
+                {
+                    if (miningTilePosList.Contains(tilemapPos) && designatedTilePosList.Contains(tilemapPos) && !flattenTilePosList.Contains(tilemapPos))
+                    {
+                        tilemap.SetTileFlags(tilemapPos, TileFlags.None);
+                        tilemap.SetColor(tilemapPos, Color.white);
+                        miningTilePosList.Remove(tilemapPos);
+                        designatedTilePosList.Remove(tilemapPos);
+                    }
+                    break;
+                }
+                break;
             }
+
+            // incremement for
+            // each offset level
+            worldPos.z += .125f;
         }
+    }
 
     public void SetTileDesignationMining()
     {
@@ -264,7 +275,8 @@ public class WorldToolManager : MonoBehaviour
             flattenButton.interactable = false;
             harvestButton.interactable = false;
 
-        } else if (isTileDesignatorMiningActive == true)
+        }
+        else if (isTileDesignatorMiningActive == true)
         {
             isTileDesignatorMiningActive = false;
             flattenButton.interactable = true;
@@ -373,7 +385,7 @@ public class WorldToolManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.KeypadMinus) && currentLayer >= 1 )
+        if (Input.GetKeyDown(KeyCode.KeypadMinus) && currentLayer >= 1)
         {
             tilemap.color = Color.gray;
             currentLayer = currentLayer - 1;
@@ -388,7 +400,7 @@ public class WorldToolManager : MonoBehaviour
         }
     }
 
-    public void BuildLayerList() 
+    public void BuildLayerList()
     {
         currentLayer = 1;
 
