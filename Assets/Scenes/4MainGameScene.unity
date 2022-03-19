@@ -584,7 +584,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1515444496}
         m_TargetAssemblyTypeName: WorldToolManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetTileDesignationCancelBuilding
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -780,6 +780,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 0, y: 0}
+  chunkHandler: {fileID: 0}
 --- !u!114 &245157750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1408,7 +1409,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1515444496}
         m_TargetAssemblyTypeName: WorldToolManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetTileDesignationBuilding
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2115,6 +2116,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 1, y: 1}
+  chunkHandler: {fileID: 0}
 --- !u!114 &574510540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2949,6 +2951,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 3, y: 3}
+  chunkHandler: {fileID: 0}
 --- !u!114 &981079591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3443,6 +3446,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 1
   offset: {x: 0, y: 0}
+  chunkHandler: {fileID: 0}
 --- !u!114 &1152547167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4106,6 +4110,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 5, y: 5}
+  chunkHandler: {fileID: 0}
 --- !u!114 &1366474146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4537,6 +4542,10 @@ MonoBehaviour:
   currentGrid: {fileID: 0}
   AddedTilePos: {x: 0, y: 0, z: 0}
   RemovedTilePos: {x: 0, y: 0, z: 0}
+  isTileDesignatorBuildingActive: 0
+  buildButton: {fileID: 0}
+  isTileDesignatorCancelBuildingActive: 0
+  cancelBuildButton: {fileID: 0}
 --- !u!4 &1515444497
 Transform:
   m_ObjectHideFlags: 0
@@ -4743,6 +4752,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 2, y: 2}
+  chunkHandler: {fileID: 0}
 --- !u!114 &1569350507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4915,6 +4925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1673159765}
+  - component: {fileID: 1673159766}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -4950,6 +4961,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1673159766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673159764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d7bf07ad080f145a2c8b97ae1c2ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterSeed: 0
 --- !u!1 &1674160101
 GameObject:
   m_ObjectHideFlags: 0
@@ -5622,6 +5646,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 4, y: 4}
+  chunkHandler: {fileID: 0}
 --- !u!114 &1884419166
 MonoBehaviour:
   m_ObjectHideFlags: 0

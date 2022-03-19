@@ -67,35 +67,7 @@ public class TileMapHandler : MonoBehaviour
                 tilemap1.SetTile(p, tile);
             }
         }
+
     }
 
-    // Function for generating a test texture with the parameters specified for the noise generator
-    // Used from the editor extension NoiseMapEditorGenerate
-    public void GenerateMap()
-    {
-        // Generate a heightmap
-        float[] noiseMap = NoiseMapGenerator.GenerateNoiseMap(width, height, seed, scale, octaves, persistence, lacunarity, offset);
-
-        // Depending on the filling of the array with tile assets, we generate a uniformly distributed color dependence on the noise height
-        List<NoiseMapRenderer.TerrainLevel> tl = new List<NoiseMapRenderer.TerrainLevel>();
-        // The upper border of the range determines the color, so divide the scale into equal segments and shift it up
-        float heightOffset = 1.0f / tileList.Count;
-        for (int i = 0; i < tileList.Count; i++)
-        {
-            // Take the color from the texture of the asset tile
-            Color color = tileList[i].sprite.texture.GetPixel(tileList[i].sprite.texture.width / 2, tileList[i].sprite.texture.height / 2);
-            // Create a new color-noise level
-            NoiseMapRenderer.TerrainLevel lev = new NoiseMapRenderer.TerrainLevel();
-            lev.color = color;
-            // Convert the index to a position on the scale with the range [0,1] and move up
-            lev.height = Mathf.InverseLerp(0, tileList.Count, i) + heightOffset;
-            // Save a new color-noise level
-            tl.Add(lev);
-        }
-
-        // Apply a new color-noise scale and generate a texture based on it from the specified parameters
-        NoiseMapRenderer mapRenderer = FindObjectOfType<NoiseMapRenderer>();
-        mapRenderer.terrainLevel = tl;
-        mapRenderer.RenderMap(width, height, noiseMap);
-    }
 }

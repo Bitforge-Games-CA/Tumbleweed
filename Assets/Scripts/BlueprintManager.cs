@@ -39,7 +39,6 @@ public class BlueprintManager : MonoBehaviour
 
     private void Start()
     {
-        Physics2D.autoSyncTransforms = true;
     }
 
     private void FixedUpdate()
@@ -59,6 +58,7 @@ public class BlueprintManager : MonoBehaviour
             }
         }
     }
+
 
     private void Update()
     {
@@ -96,8 +96,6 @@ public class BlueprintManager : MonoBehaviour
                     }
 
                     //temp.BuildingSize.position = new Vector3Int(temp.BuildingSize.position.x, temp.BuildingSize.position.y, 1);
-
-                    FixedUpdate();
 
                     PrevPos = TilemapPos;
                 }
@@ -184,6 +182,8 @@ public class BlueprintManager : MonoBehaviour
 
         Temp = Instantiate(building, tilemapPos, Quaternion.identity).GetComponent<Building>();
 
+        Temp.gameObject.AddComponent<Blueprint>();
+
         SR = Temp.GetComponent<SpriteRenderer>();
 
         SR.color = new Vector4(0, 0, 1, 0.5f);
@@ -243,7 +243,6 @@ public class BlueprintManager : MonoBehaviour
 
         if (PC2D.IsTouchingLayers(LayerMask.GetMask("Building")))
         {
-            Debug.Log("touching");
             SR.color = new Vector4(1, 0, 0, 0.5f);
             return CantBePlaced2 =  true;
         }
