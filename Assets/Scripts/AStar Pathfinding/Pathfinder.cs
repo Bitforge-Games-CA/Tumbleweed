@@ -6,6 +6,10 @@ using System;
 
 public class Pathfinder
 {
+
+    // TO USE
+    // update GridLocation
+
     public List<PathNode> FindPath(PathNode startNode, PathNode endNode)
     {
         List<PathNode> openList = new List<PathNode>();
@@ -132,6 +136,8 @@ public class Pathfinder
         pathNode.X = x;
         pathNode.Y = y;
         pathNode.Z = z;
+
+        pathNode.GridLocation = new Vector3Int(x, y, z);
             
         return pathNode;
     }

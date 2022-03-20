@@ -7,6 +7,7 @@ public class TileMapHandler : MonoBehaviour
 {
     // Map Object
     public Tilemap tilemap1;
+    public Grid grid1;
     // List with tiles
     public List<Tile> tileList = new List<Tile>();
 
@@ -65,6 +66,8 @@ public class TileMapHandler : MonoBehaviour
                 // Set the tile height depending on the converted noise level
                 Vector3Int p = new Vector3Int(x - width / 2, y - height / 2, tileHeightIndex);
                 tilemap1.SetTile(p, tile);
+                PathNode pathNodeNew = new PathNode(grid1, p);
+                pathNodeNew.GridLocation = p;
             }
         }
 

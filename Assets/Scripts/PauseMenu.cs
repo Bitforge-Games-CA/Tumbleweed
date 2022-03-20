@@ -6,17 +6,23 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject settingsMenu;
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) == true  && pauseMenu.activeSelf == false)
+        if (Input.GetKeyDown(KeyCode.Escape) == true  && pauseMenu.activeSelf == false && settingsMenu.activeSelf == false)
         {
             Pause();
 
-        } else if (Input.GetKeyDown(KeyCode.Escape) == true && pauseMenu.activeSelf == true)
+        } 
+        else if (Input.GetKeyDown(KeyCode.Escape) == true && pauseMenu.activeSelf == true && settingsMenu.activeSelf == false)
         {
             Resume();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) == true && pauseMenu.activeSelf == false && settingsMenu.activeSelf == true)
+        {
+            BackToPause();
         }
     }
 
@@ -40,6 +46,18 @@ public class PauseMenu : MonoBehaviour
     public void LoadGame()
     {
 
+    }
+
+    public void Settings()
+    {
+        settingsMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+
+    public void BackToPause()
+    {
+        settingsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     public void MainMenu(int sceneID)

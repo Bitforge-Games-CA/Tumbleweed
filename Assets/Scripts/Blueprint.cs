@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Blueprint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         BlueprintManager.current.CantBePlaced2 = true;
