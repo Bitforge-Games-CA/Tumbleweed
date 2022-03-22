@@ -15,11 +15,6 @@ public class SettingsMenu : MonoBehaviour
         Application.targetFrameRate = DefaultFrameRate;
     }
 
-    public void SetFrameRate30()
-    {
-        Application.targetFrameRate = 30;
-    }
-
     public void SetFrameRate60()
     {
         Application.targetFrameRate = 60;
@@ -33,6 +28,11 @@ public class SettingsMenu : MonoBehaviour
     public void SetFrameRate120()
     {
         Application.targetFrameRate = 120;
+    }
+
+    public void SetFrameRate144()
+    {
+        Application.targetFrameRate = 144;
     }
 
 }

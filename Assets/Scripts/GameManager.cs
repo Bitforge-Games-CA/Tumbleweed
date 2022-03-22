@@ -5,27 +5,16 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Text townNameUI;
+    public Text TownNameUI;
 
     // Start is called before the first frame update
     void Start()
     {
         // set the town name
-        townNameUI = transform.Find("MGTownName").GetComponent<Text>();
-        townNameUI.text = NewGameMenu.townName.text;
+        TownNameUI = transform.Find("MGTownName").GetComponent<Text>();
+        TownNameUI.text = NewGameMenu.TownName.text;
 
+        // Default frame rate
         Application.targetFrameRate = -1;
-
-
-
-
-
     }
-
-    // Update is called once per frame
-    void Update()
-    { 
-
-    }
-    
 }

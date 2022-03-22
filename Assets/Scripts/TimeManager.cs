@@ -7,136 +7,217 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class TimeManager : MonoBehaviour
 {
-    public Light2D sun2D;
-    public Text dateTimeUI;
-    public Text hourTimeUI;
+    public Light2D Sun2D;
+    public Text DateTimeUI;
+    public Text HourTimeUI;
 
-    public static Action onHourChanged;
-    public static Action onDayChanged;
-    public static Action onMonthChanged;
+    public static Action OnHourChanged;
+    public static Action OnDayChanged;
+    public static Action OnMonthChanged;
 
-    public float timeScale = 12.0f;
-    public float timer;
+    public float TimeScale = 12.0f;
+    public float Timer;
 
-    public int hourDay = 8;
-    public int hourNight = 0;
-    public int day = 1;
+    public int HourDay = 8;
+    public int HourNight = 0;
+    public int Day = 1;
 
-    public int month = 0;
-    public int year = 1852;
+    public int Month = 0;
+    public int Year = 1852;
 
-    public List<String> monthList = new List<string>();
+    public List<String> MonthList = new List<string>();
 
-    public bool pausedTime;
-    public bool isNight;
+    public List<int> NumDaysListReg = new List<int>();
+    public List<int> NumDaysListLeap = new List<int>();
+
+    public bool PausedTime;
+    public bool IsNight;
 
     // Start is called before the first frame update
     void Start()
     {
-        pausedTime = false;
+        PausedTime = false;
         BuildMonthList();
-        dateTimeUI = transform.Find("DateText").GetComponent<Text>();
-        hourTimeUI = transform.Find("HourText").GetComponent<Text>();
-        sun2D = GameObject.FindWithTag("Sun").GetComponent<Light2D>();
-        timer = timeScale;
-        dateTimeUI.text = $"{monthList[month]} {day}, {year}";
+        BuildDaysInMonthRegList();
+        BuildDaysInMonthLeapList();
+        DateTimeUI = transform.Find("DateText").GetComponent<Text>();
+        HourTimeUI = transform.Find("HourText").GetComponent<Text>();
+        Sun2D = GameObject.FindWithTag("Sun").GetComponent<Light2D>();
+        Timer = TimeScale;
+        DateTimeUI.text = $"{MonthList[Month]} {Day}, {Year}";
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
+        Timer -= Time.deltaTime;
 
         // day cycle
-        if (timer <= 0 && pausedTime == false && hourDay < 12)
+        if (Timer <= 0 && PausedTime == false && HourDay < 12)
         {
-            hourDay++;
-            AdjustLightDay(hourDay);
-            hourTimeUI.text = $"{hourDay} hr";
+            HourDay++;
+            AdjustLightDay(HourDay);
+            HourTimeUI.text = $"{HourDay} hr";
             
-            timer = timeScale;
+            Timer = TimeScale;
         }
 
 
         // night cycle
-        if (timer <= 0 && pausedTime == false && hourDay >= 12)
+        if (Timer <= 0 && PausedTime == false && HourDay >= 12)
         {
-            isNight = true;
-            hourNight++;
-            AdjustLightNight(hourNight);
-            hourTimeUI.text = $"{hourNight} hr";
+            IsNight = true;
+            HourNight++;
+            AdjustLightNight(HourNight);
+            HourTimeUI.text = $"{HourNight} hr";
 
-            if (hourNight == 12 && pausedTime == false)
+            if (HourNight == 12 && PausedTime == false)
             {
-                day++;
-                dateTimeUI.text = $"{monthList[month]} {day}, {year}";
-                hourNight = 0;
-                hourDay = 0;
-                isNight = false;
+                Day++;
+                HourNight = 0;
+                HourDay = 0;
+                DateTimeUI.text = $"{MonthList[Month]} {Day}, {Year}";
+                IsNight = false;
             }
 
-            timer = timeScale;
+            Timer = TimeScale;
         }
+
+        if (!DateTime.IsLeapYear(Year))
+        {
+            MonthReg currentMonth = new MonthReg(MonthList[Month], NumDaysListReg[Month]);
+
+            // year cycle
+            if (Timer <= 0 && PausedTime == false && currentMonth.MonthNameReg == "Dec" && Day > 31)
+            {
+                Year++;
+                Month = 1;
+                DateTimeUI.text = $"{MonthList[Month]} {Day}, {Year}";
+            }
+
+            // month cycle normal
+            if (Timer <= 0 && PausedTime == false && Day > currentMonth.DaysInMonthReg)
+            {
+                Month++;
+                Day = 1;
+                DateTimeUI.text = $"{MonthList[Month]} {Day}, {Year}";
+            }
+
+        } 
+        else
+        {
+            MonthLeap currentMonth = new MonthLeap(MonthList[Month], NumDaysListLeap[Month] );
+
+            // year cycle
+            if (Timer <= 0 && PausedTime == false && currentMonth.MonthNameLeap == "Dec" && Day > 31)
+            {
+                Year++;
+                Month = 1;
+                DateTimeUI.text = $"{MonthList[Month]} {Day}, {Year}";
+            }
+
+            // month cycle leap
+            if (Timer <= 0 && PausedTime == false && Day > currentMonth.DaysInMonthLeap)
+            {
+                Month++;
+                Day = 1;
+                DateTimeUI.text = $"{MonthList[Month]} {Day}, {Year}";
+            }
+        }
+
+
     }
 
     void BuildMonthList()
     {
-        monthList.Add("Jan");
-        monthList.Add("Feb");
-        monthList.Add("March");
-        monthList.Add("April");
-        monthList.Add("May");
-        monthList.Add("June");
-        monthList.Add("July");
-        monthList.Add("Aug");
-        monthList.Add("Sept");
-        monthList.Add("Oct");
-        monthList.Add("Nov");
-        monthList.Add("Dec");
+        MonthList.Add("Jan");
+        MonthList.Add("Feb");
+        MonthList.Add("March");
+        MonthList.Add("April");
+        MonthList.Add("May");
+        MonthList.Add("June");
+        MonthList.Add("July");
+        MonthList.Add("Aug");
+        MonthList.Add("Sept");
+        MonthList.Add("Oct");
+        MonthList.Add("Nov");
+        MonthList.Add("Dec");
+    }
+
+    void BuildDaysInMonthRegList()
+    {
+        NumDaysListReg.Add(31);
+        NumDaysListReg.Add(28);
+        NumDaysListReg.Add(31);
+        NumDaysListReg.Add(30);
+        NumDaysListReg.Add(31);
+        NumDaysListReg.Add(30);
+        NumDaysListReg.Add(31);
+        NumDaysListReg.Add(31);
+        NumDaysListReg.Add(30);
+        NumDaysListReg.Add(31);
+        NumDaysListReg.Add(30);
+        NumDaysListReg.Add(31);
+    }
+
+    void BuildDaysInMonthLeapList()
+    {
+        NumDaysListLeap.Add(31);
+        NumDaysListLeap.Add(29);
+        NumDaysListLeap.Add(31);
+        NumDaysListLeap.Add(30);
+        NumDaysListLeap.Add(31);
+        NumDaysListLeap.Add(30);
+        NumDaysListLeap.Add(31);
+        NumDaysListLeap.Add(31);
+        NumDaysListLeap.Add(30);
+        NumDaysListLeap.Add(31);
+        NumDaysListLeap.Add(30);
+        NumDaysListLeap.Add(31);
     }
 
     public void PauseGameTimer()
     {
-        if (pausedTime == true)
+        if (PausedTime == true)
         {
-            pausedTime = false;
+            PausedTime = false;
 
-        } else if (pausedTime == false)
+        } else if (PausedTime == false)
         {
-            pausedTime = true;
+            PausedTime = true;
         }
 
     }
 
     public void ResumeGameTimer()
     {
-        pausedTime = false;
-        timeScale = 12.0f;
+        PausedTime = false;
+        TimeScale = 12.0f;
     }
 
     public void FFW1()
     {
-        pausedTime = false;
-        timeScale = 9.0f;
+        PausedTime = false;
+        TimeScale = 9.0f;
     }
 
     public void FFW2()
     {
-        pausedTime = false;
-        timeScale = 6.0f;
+        PausedTime = false;
+        TimeScale = 6.0f;
     }
 
     public void AdjustLightDay(int time)
     {
         float normalizedFloat = Mathf.InverseLerp(-6, 12, time);
-        sun2D.intensity = normalizedFloat;
+        Sun2D.intensity = normalizedFloat;
         
     }
 
     public void AdjustLightNight(int time)
     {
         float normalizedFloat = Mathf.InverseLerp(18, 1, time);
-        sun2D.intensity = normalizedFloat;
+        Sun2D.intensity = normalizedFloat;
     }
 
 }

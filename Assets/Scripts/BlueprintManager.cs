@@ -34,7 +34,14 @@ public class BlueprintManager : MonoBehaviour
     private void Awake()
     {
         // instatiate the singleton
-        current = this;
+        if (current == null)
+        {
+            current = this;
+        } 
+        else if (current != this)
+        {
+            Destroy(current);
+        }
     }
 
     private void Start()

@@ -6,24 +6,24 @@ using UnityEngine.UI;
 
 public class NewGameMenu : MonoBehaviour
 {
-    public static InputField townName;
-    public static InputField seed;
-    public Text dialog;
+    public static InputField TownName;
+    public static InputField Seed;
+    public Text Dialog;
 
     public void Generate()
     {
-        townName = transform.Find("NGMTownNameInputField").GetComponent<InputField>();
-        seed = transform.Find("NGMSeedInputField").GetComponent<InputField>();
-        dialog = transform.Find("NGMDialog").GetComponent<Text>();
+        TownName = transform.Find("NGMTownNameInputField").GetComponent<InputField>();
+        Seed = transform.Find("NGMSeedInputField").GetComponent<InputField>();
+        Dialog = transform.Find("NGMDialog").GetComponent<Text>();
 
-        if (townName.text.ToString().Length > 0 && seed.text.ToString().Length > 0)
+        if (TownName.text.ToString().Length > 0 && Seed.text.ToString().Length > 0)
         {
-            dialog.text = "Generating...";
+            Dialog.text = "Generating...";
             SceneManager.LoadScene(4);
 
         } else
         {
-            dialog.text = "Nothing selected";
+            Dialog.text = "Nothing selected";
         }
     }
 

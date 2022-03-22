@@ -31,7 +31,7 @@ public class TileMapHandler : MonoBehaviour
         NoiseMapRenderer mapRenderer = FindObjectOfType<NoiseMapRenderer>();
         mapRenderer.gameObject.SetActive(false);
 
-        seed = Convert.ToInt32(NewGameMenu.seed);
+        seed = Convert.ToInt32(NewGameMenu.Seed);
 
         // Generate a height map
         float[] noiseMap = NoiseMapGenerator.GenerateNoiseMap(width, height, seed, scale, octaves, persistence, lacunarity, offset);

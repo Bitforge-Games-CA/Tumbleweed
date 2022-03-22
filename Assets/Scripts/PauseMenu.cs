@@ -5,22 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] GameObject pauseMenu;
-    [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject PauseMenuGO;
+    [SerializeField] GameObject SettingsMenuGO;
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) == true  && pauseMenu.activeSelf == false && settingsMenu.activeSelf == false)
+        if (Input.GetKeyDown(KeyCode.Escape) == true  && PauseMenuGO.activeSelf == false && SettingsMenuGO.activeSelf == false)
         {
             Pause();
 
         } 
-        else if (Input.GetKeyDown(KeyCode.Escape) == true && pauseMenu.activeSelf == true && settingsMenu.activeSelf == false)
+        else if (Input.GetKeyDown(KeyCode.Escape) == true && PauseMenuGO.activeSelf == true && SettingsMenuGO.activeSelf == false)
         {
             Resume();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) == true && pauseMenu.activeSelf == false && settingsMenu.activeSelf == true)
+        else if (Input.GetKeyDown(KeyCode.Escape) == true && PauseMenuGO.activeSelf == false && SettingsMenuGO.activeSelf == true)
         {
             BackToPause();
         }
@@ -28,13 +28,13 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        pauseMenu.SetActive(true);
+        PauseMenuGO.SetActive(true);
         Time.timeScale = 0.0f;
     }
 
     public void Resume()
     {
-        pauseMenu.SetActive(false);
+        PauseMenuGO.SetActive(false);
         Time.timeScale = 1.0f;
     }
 
@@ -50,14 +50,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Settings()
     {
-        settingsMenu.SetActive(true);
-        pauseMenu.SetActive(false);
+        SettingsMenuGO.SetActive(true);
+        PauseMenuGO.SetActive(false);
     }
 
     public void BackToPause()
     {
-        settingsMenu.SetActive(false);
-        pauseMenu.SetActive(true);
+        SettingsMenuGO.SetActive(false);
+        PauseMenuGO.SetActive(true);
     }
 
     public void MainMenu(int sceneID)

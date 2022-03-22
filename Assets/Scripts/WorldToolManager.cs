@@ -59,7 +59,14 @@ public class WorldToolManager : MonoBehaviour
     void Start()
     {
         // instatiate the singleton
-        current = this;
+        if (current == null)
+        {
+            current = this;
+        }
+        else if (current != this)
+        {
+            Destroy(current);
+        }
         // find everything and build the lists too
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         selectionBoxGO = GameObject.FindGameObjectWithTag("SelectionBox");
@@ -163,7 +170,6 @@ public class WorldToolManager : MonoBehaviour
                         tilemap.SetColor(tilemapPos, Color.blue);
                         flattenTilePosList.Add(tilemapPos);
                         designatedTilePosList.Add(tilemapPos);
-
 
                         AddedTilePos = tilemapPos;
                         JobManager.current.ListUpdatedAdd = false;

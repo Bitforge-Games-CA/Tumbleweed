@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class NameGenerator : MonoBehaviour
 {
-    public static string[] settlerMaleNameList = { "John", "Willy", "Pete", "Matthew", "Smiley", "Doug", "Mark", "William", "Thomas", "George", "Charles", "Henry", "Samuel", "Alfred", "Frederick", "David", "Stephen", "Edmund", "Tom", "Michael", "Herbert", "Philip", "Eli", "Reuben", "Evan" };
+    public static string[] SettlerMaleNameList = { "John", "Willy", "Pete", "Matthew", "Smiley", "Doug", "Mark", "William", "Thomas", "George", "Charles", "Henry", "Samuel", "Alfred", "Frederick", "David", "Stephen", "Edmund", "Tom", "Michael", "Herbert", "Philip", "Eli", "Reuben", "Evan" };
 
-    public static string[] settlerFemaleNameList = { "Mary", "Elizabeth", "Sarah", "Ann", "Jane", "Emma", "Eliza", "Ellen", "Margaret", "Hannah", "Emily", "Harriet", "Alice", "Louise", "Catherine", "Caroline", "Susanna", "Elenaor", "Ruby", "Julia", "Ruth", "Rose", "Beth", "Julia", "Margot" };
+    public static string[] SettlerFemaleNameList = { "Mary", "Elizabeth", "Sarah", "Ann", "Jane", "Emma", "Eliza", "Ellen", "Margaret", "Hannah", "Emily", "Harriet", "Alice", "Louise", "Catherine", "Caroline", "Susanna", "Elenaor", "Ruby", "Julia", "Ruth", "Rose", "Beth", "Julia", "Margot" };
 
-    public static string[] prospectorMaleNameList = { "1", "", "", "", "", "2", "", "", "", "", "3", "", "", "", "", "4", "", "", "", "", "5", "", "", "", "" };
+    public static string[] ProspectorMaleNameList = { "1", "", "", "", "", "2", "", "", "", "", "3", "", "", "", "", "4", "", "", "", "", "5", "", "", "", "" };
 
-    public static string[] prospectorFemaleNameList = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+    public static string[] ProspectorFemaleNameList = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 
-    public static string[] cowboyMaleNameList = { "1", "", "", "", "", "2", "", "", "", "", "3", "", "", "", "", "4", "", "", "", "", "5", "", "", "", "" };
+    public static string[] CowboyMaleNameList = { "1", "", "", "", "", "2", "", "", "", "", "3", "", "", "", "", "4", "", "", "", "", "5", "", "", "", "" };
 
-    public static string[] cowboyFemaleNameList = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+    public static string[] CowboyFemaleNameList = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 
-    public static string[] banditMaleNameList = { "Johnathan", "Ulysses", "Jenkins", "Arnold", "Oswald", "Eric", "Daniels", "Leeroy", "Reginald", "Curly", "Watson", "Godfrey", "Dick", "Alan", "Stanley", "Titus", "Abraham", "Percival", "Oscar", "Howell", "Jasper", "Marshell", "Lenny", "Barret", "Ben" };
-
-    public static string[] banditFemaleNameList = { "Thomasin", "Joan", "Myra", "Maud", "Penelope", "Philipa", "Adele", "Cecila", "Dora", "Eveline", "Lizzy", "Nelly", "Drusella", "Helen", "Jenny", "Sheila", "Shelly", "Margo", "Jan", "Kara", "Lucell", "Mina", "Olivia", "Sarah", "" };
+    public static string[] BanditMaleNameList = { "Johnathan", "Ulysses", "Jenkins", "Arnold", "Oswald", "Eric", "Daniels", "Leeroy", "Reginald", "Curly", "Watson", "Godfrey", "Dick", "Alan", "Stanley", "Titus", "Abraham", "Percival", "Oscar", "Howell", "Jasper", "Marshell", "Lenny", "Barret", "Ben" };
+    
+    public static string[] BanditFemaleNameList = { "Thomasin", "Joan", "Myra", "Maud", "Penelope", "Philipa", "Adele", "Cecila", "Dora", "Eveline", "Lizzy", "Nelly", "Drusella", "Helen", "Jenny", "Sheila", "Shelly", "Margo", "Jan", "Kara", "Lucell", "Mina", "Olivia", "Sarah", "" };
 
 
 
@@ -36,49 +36,49 @@ public class NameGenerator : MonoBehaviour
 
         if (type == "Settler" && gender == "Male")
         {
-            name = settlerMaleNameList[nameIndex];
+            name = SettlerMaleNameList[nameIndex];
             return name;
         }
 
         if (type == "Settler" && gender == "Female")
         {
-            name = settlerMaleNameList[nameIndex];
+            name = SettlerMaleNameList[nameIndex];
             return name;
         }
 
         if (type == "Prospector" && gender == "Male")
         {
-            name = prospectorMaleNameList[nameIndex];
+            name = ProspectorMaleNameList[nameIndex];
             return name;
         }
 
         if (type == "Prospector" && gender == "Female")
         {
-            name = prospectorFemaleNameList[nameIndex];
+            name = ProspectorFemaleNameList[nameIndex];
             return name;
         }
 
         if (type == "Cowboy" && gender == "Male")
         {
-            name = cowboyMaleNameList[nameIndex];
+            name = CowboyMaleNameList[nameIndex];
             return name;
         }
 
         if (type == "Cowboy" && gender == "Female")
         {
-            name = cowboyFemaleNameList[nameIndex];
+            name = CowboyFemaleNameList[nameIndex];
             return name;
         }
 
         if (type == "Bandit" && gender == "Male")
         {
-            name = banditMaleNameList[nameIndex];
+            name = BanditMaleNameList[nameIndex];
             return name;
         }
 
         if (type == "Bandit" && gender == "Female")
         {
-            name = banditFemaleNameList[nameIndex];
+            name = BanditFemaleNameList[nameIndex];
             return name;
         }
 

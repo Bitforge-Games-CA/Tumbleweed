@@ -30,7 +30,14 @@ public class JobManager : MonoBehaviour
     void Start()
     {
         // instatiate the singleton
-        current = this;
+        if (current == null)
+        {
+            current = this;
+        }
+        else if (current != this)
+        {
+            Destroy(current);
+        }
         JobsListAll.Clear();
     }
 

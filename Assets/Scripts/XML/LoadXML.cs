@@ -21,6 +21,7 @@ public class LoadXML : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+            // Debug.Log(Application.dataPath);
             
             XMLDataPath = Application.dataPath + "/XML";
 
@@ -205,6 +206,8 @@ public class LoadXML : MonoBehaviour
 
             }
 
+
+            // FIX ME: add to BlueprintManager instead of assingning at game beginning
             foreach (GameObject building in GameObject.FindGameObjectsWithTag("Building"))
             {
                 if (building.name.Contains("Tent"))

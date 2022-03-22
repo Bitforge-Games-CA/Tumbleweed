@@ -13,7 +13,7 @@ public class GeneratorSharedSettings : MonoBehaviour
     void Start()
     {
         current = this;
-        MasterSeed = Convert.ToInt32(NewGameMenu.seed);
+        MasterSeed = Convert.ToInt32(NewGameMenu.Seed);
     }
 
 }
