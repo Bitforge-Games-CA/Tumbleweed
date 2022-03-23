@@ -547,8 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfbbd6ead62e184b9d22becaf118b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1376933454}
-  settingsMenu: {fileID: 1420282802}
+  PauseMenuGO: {fileID: 0}
+  SettingsMenuGO: {fileID: 0}
 --- !u!114 &127370591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1950dad7f84ee94e9a5f83eaaf1d125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  townNameUI: {fileID: 0}
+  TownNameUI: {fileID: 0}
 --- !u!114 &127370592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,19 +574,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7177ec0a882e145b4fc9d78806c625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sun2D: {fileID: 367107536}
-  dateTimeUI: {fileID: 0}
-  hourTimeUI: {fileID: 0}
-  timeScale: 12
-  timer: 0
-  hourDay: 8
-  hourNight: 0
-  day: 1
-  month: 0
-  year: 1852
-  monthList: []
-  pausedTime: 0
-  isNight: 0
+  Sun2D: {fileID: 0}
+  DateTimeUI: {fileID: 0}
+  HourTimeUI: {fileID: 0}
+  TimeScale: 12
+  Timer: 0
+  HourDay: 8
+  HourNight: 0
+  Day: 1
+  Month: 0
+  Year: 1852
+  PausedTime: 0
+  IsNight: 0
 --- !u!1 &155241325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6775,7 +6774,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1673159765}
-  - component: {fileID: 1673159766}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -6811,19 +6809,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1673159766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673159764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3d7bf07ad080f145a2c8b97ae1c2ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MasterSeed: 0
 --- !u!1 &1674160101
 GameObject:
   m_ObjectHideFlags: 0

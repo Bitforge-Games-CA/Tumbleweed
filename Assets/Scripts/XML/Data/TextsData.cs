@@ -4,8 +4,13 @@ using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
 
-[XmlRoot("TextsData")]
-public class TextsData : MonoBehaviour
+namespace Tumbleweed.Core.XML.Data
 {
-    
+
+    [XmlRoot("TextsData")]
+    public class TextsData : MonoBehaviour
+    {
+
+    }
+
 }

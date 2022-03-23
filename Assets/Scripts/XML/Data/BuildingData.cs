@@ -4,30 +4,35 @@ using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
 
-[XmlRoot("BuildingData")]
-public class BuildingData : MonoBehaviour
+namespace Tumbleweed.Core.XML.Data
 {
-    // Info
-    [XmlElement("Name")]
-    public string BuildingName;
 
-    [XmlElement("Description")]
-    public string BuildingDescription;
+    [XmlRoot("BuildingData")]
+    public class BuildingData : MonoBehaviour
+    {
+        // Info
+        [XmlElement("Name")]
+        public string BuildingName;
 
-
-
-    // Stats
-    [XmlElement("HealthScore")]
-    public string BuildingHealthScore;
+        [XmlElement("Description")]
+        public string BuildingDescription;
 
 
 
-
-    // Properties
-    [XmlElement("IsRotateable")]
-    public string BuildingIsRotatable;
-
+        // Stats
+        [XmlElement("HealthScore")]
+        public string BuildingHealthScore;
 
 
+
+
+        // Properties
+        [XmlElement("IsRotateable")]
+        public string BuildingIsRotatable;
+
+
+
+
+    }
 
 }
