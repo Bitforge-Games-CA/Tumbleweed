@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Eat
   m_EditorClassIdentifier: 
   Name: Eat
+  Timer: 0
   Considerations:
   - {fileID: 11400000, guid: 0fe841ee1131d2f438e418db1919eda6, type: 2}
+  RequiredDestination: {fileID: 0}
+  IsEating: 0

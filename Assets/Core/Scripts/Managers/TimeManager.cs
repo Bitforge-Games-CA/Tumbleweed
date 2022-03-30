@@ -19,6 +19,8 @@ namespace Tumbleweed.Core.Managers
 
         public float TimeScale = 12.0f;
         public float Timer;
+        public int TimerInt;
+        bool isInt;
 
         public int HourDay = 8;
         public int HourNight = 0;
@@ -36,11 +38,11 @@ namespace Tumbleweed.Core.Managers
         public bool IsNight;
 
 
-        public event EventHandler OnTickShort;
-        public event EventHandler OnTickHour;
-        public event EventHandler OnTickDay;
-        public event EventHandler OnTickMonth;
-        public event EventHandler OnTickYear;
+        public event EventHandler OnTickShort; // 50 times a second
+        public event EventHandler OnTickHour; // every 12 seconds
+        public event EventHandler OnTickDay; // every 288 seconds or 4.8 minutes
+        public event EventHandler OnTickMonth; // roughly every 144 minutes
+        public event EventHandler OnTickYear; // roughly every 1728 minutes
 
         public event EventHandler OnTimeScaleChanged;
 
@@ -71,6 +73,8 @@ namespace Tumbleweed.Core.Managers
             if (PausedTime == false)
             {
                 Timer -= Time.deltaTime;
+
+                // short tick
                 OnTickShort?.Invoke(this, EventArgs.Empty);
 
                 // day cycle
@@ -86,7 +90,6 @@ namespace Tumbleweed.Core.Managers
                     }
                     Timer = TimeScale;
                 }
-
 
                 // night cycle
                 if (Timer <= 0 && HourDay >= 12)

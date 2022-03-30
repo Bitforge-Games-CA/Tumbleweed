@@ -12,21 +12,27 @@ namespace Tumbleweed.Core.UtilityAI.Actions
     {
         public bool IsEating;
         private NPCController NPC;
+        private AIBrain AIBrain;
 
         public override void Execute(AIBrain aiBrain, NPCController npc)
         {
             if (!TimeManager.current.PausedTime)
             {
-                if (!TimeManager.current.PausedTime)
-                {
-                    Timer = 0;
-                    IsEating = true;
-                    NPC = npc;
-                    TimeManager.current.OnTickShort += Eat_OnTickShort;
-                }
+                Debug.Log("Starting to eat");
+
+                Timer = 0;
+                IsEating = true;
+                AIBrain = aiBrain;
+                NPC = npc;
+                TimeManager.current.OnTickShort += Eat_OnTickShort;
 
             }
 
+        }
+
+        public override void SetRequiredDestination(NPCController npc, MoveController mc)
+        {
+            // TODO implement logic
         }
 
         private void Eat_OnTickShort(object sender, EventArgs e)
@@ -36,13 +42,17 @@ namespace Tumbleweed.Core.UtilityAI.Actions
                 if (IsEating)
                 {
                     Timer += Time.deltaTime;
-                    //Debug.Log(Timer / TimeManager.current.TimeScale);
+
                     if (Timer >= TimeManager.current.TimeScale * 0.5)
                     {
                         IsEating = false;
+
                         // stat gain
+                        NPC.CharacterData.HungerScore -= (int)33.3f;
                         
+                        // finish eating
                         Debug.Log("Finished eating");
+                        AIBrain.FinishedExecutingBestAction = true;
                     }
 
                 }

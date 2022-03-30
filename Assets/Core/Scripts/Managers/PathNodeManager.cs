@@ -7,20 +7,21 @@ public class PathNodeManager : MonoBehaviour
 {
     public List<PathNode> pathNodes = new List<PathNode>();
 
-    public Vector3Int GetXYZFromPathNode(PathNode nodeToFind, List<PathNode> pathNodes)
+    public Dictionary<Vector2, PathNode> pathNodesDict = new Dictionary<Vector2, PathNode>();
+
+    public Vector2 GetXYZFromPathNode(PathNode nodeToFind, List<PathNode> pathNodes)
     {
        if (pathNodes.Contains(nodeToFind))
        {
             var x = nodeToFind.X;
             var y = nodeToFind.Y;
-            var z = nodeToFind.Z;
 
-            return new Vector3Int(x, y, z);
+            return new Vector2(x, y);
        } 
        else
        {
             Debug.Log("node not found");
-            return new Vector3Int(0, 0, 0);
+            return new Vector2(0, 0);
        }
     }
 

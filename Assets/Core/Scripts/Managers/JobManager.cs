@@ -16,15 +16,13 @@ namespace Tumbleweed.Core.Managers
         public List<Job> JobsListMine = new List<Job>();
         public List<Job> JobsListHarvest = new List<Job>();
 
+        public List<Job> JobsListHaul = new List<Job>();
+
         public List<Vector3Int> PositionsList;
         public List<Vector3Int> PrevPositionsList;
 
         public bool ListUpdatedAdd = true;
         public bool ListUpdatedRemove = true;
-
-        public bool IsFlatten = false;
-        public bool IsMining = false;
-        public bool IsHarvesting = false;
 
         public Job CurrentJob;
 
@@ -41,7 +39,6 @@ namespace Tumbleweed.Core.Managers
             {
                 Destroy(current);
             }
-            JobsListAll.Clear();
         }
 
         // Update is called once per frame
@@ -58,29 +55,30 @@ namespace Tumbleweed.Core.Managers
             if (WorldToolManager.current.AddedTilePos != null && ListUpdatedAdd == true && Input.GetMouseButtonUp(1))
             {
                 Job CurrentJob = ScriptableObject.Instantiate<Job>(ScriptableObject.CreateInstance<Job>());
-                CurrentJob.JobPositions = new List<Vector3Int>(PositionsList);
+                CurrentJob.Positions = new List<Vector3Int>(PositionsList);
 
-                if (IsFlatten == true)
+                if (WorldToolManager.current.isTileDesignatorFlattenActive == true)
                 {
                     CurrentJob.JobType = "Flattening";
-                    IsFlatten = false;
+                    JobsListFlatten.Add(CurrentJob);
                 }
 
 
-                if (IsMining == true)
+                if (WorldToolManager.current.isTileDesignatorMiningActive == true)
                 {
                     CurrentJob.JobType = "Mining";
-                    IsMining = false;
+                    JobsListMine.Add(CurrentJob);
                 }
 
 
-                if (IsHarvesting == true)
+                if (WorldToolManager.current.isTileDesignatorHarvestingActive == true)
                 {
                     CurrentJob.JobType = "Harvesting";
-                    IsHarvesting = false;
+                    JobsListHarvest.Add(CurrentJob);
                 }
 
                 JobsListAll.Add(CurrentJob);
+                
 
                 PositionsList.Clear();
             }
@@ -90,9 +88,33 @@ namespace Tumbleweed.Core.Managers
 
                 foreach (Job job in JobsListAll)
                 {
-                    if (job.JobPositions.Contains(WorldToolManager.current.RemovedTilePos))
+                    if (job.Positions.Contains(WorldToolManager.current.RemovedTilePos))
                     {
-                        job.JobPositions.Remove(WorldToolManager.current.RemovedTilePos);
+                        job.Positions.Remove(WorldToolManager.current.RemovedTilePos);
+                    }
+                }
+
+                foreach (Job job in JobsListFlatten)
+                {
+                    if (job.Positions.Contains(WorldToolManager.current.RemovedTilePos))
+                    {
+                        job.Positions.Remove(WorldToolManager.current.RemovedTilePos);
+                    }
+                }
+
+                foreach (Job job in JobsListMine)
+                {
+                    if (job.Positions.Contains(WorldToolManager.current.RemovedTilePos))
+                    {
+                        job.Positions.Remove(WorldToolManager.current.RemovedTilePos);
+                    }
+                }
+
+                foreach (Job job in JobsListHarvest)
+                {
+                    if (job.Positions.Contains(WorldToolManager.current.RemovedTilePos))
+                    {
+                        job.Positions.Remove(WorldToolManager.current.RemovedTilePos);
                     }
                 }
 
@@ -100,6 +122,9 @@ namespace Tumbleweed.Core.Managers
             }
 
             CleanJobListAll();
+            CleanJobListFlatten();
+            CleanJobListMine();
+            CleanJobListHarvest();
 
         }
 
@@ -107,7 +132,7 @@ namespace Tumbleweed.Core.Managers
 
         public void RemoveJobFromListAll(Job job)
         {
-            if (job.JobPositions.Count == 0)
+            if (job.Positions.Count == 0)
             {
                 JobsListAll.Remove(job);
             }
@@ -120,7 +145,40 @@ namespace Tumbleweed.Core.Managers
             for (int i = 0; i < jobs.Count; i++)
             {
                 var job = jobs[i];
-                if (job.JobPositions.Count == 0)
+                if (job.Positions.Count == 0)
+                    JobsListAll.Remove(job);
+            }
+        }
+
+        public void CleanJobListFlatten()
+        {
+            var jobs = JobsListFlatten.ToList();
+            for (int i = 0; i < jobs.Count; i++)
+            {
+                var job = jobs[i];
+                if (job.Positions.Count == 0)
+                    JobsListAll.Remove(job);
+            }
+        }
+
+        public void CleanJobListMine()
+        {
+            var jobs = JobsListMine.ToList();
+            for (int i = 0; i < jobs.Count; i++)
+            {
+                var job = jobs[i];
+                if (job.Positions.Count == 0)
+                    JobsListAll.Remove(job);
+            }
+        }
+
+        public void CleanJobListHarvest()
+        {
+            var jobs = JobsListHarvest.ToList();
+            for (int i = 0; i < jobs.Count; i++)
+            {
+                var job = jobs[i];
+                if (job.Positions.Count == 0)
                     JobsListAll.Remove(job);
             }
         }
@@ -129,7 +187,7 @@ namespace Tumbleweed.Core.Managers
         {
 
             Job newJob = ScriptableObject.Instantiate<Job>(ScriptableObject.CreateInstance<Job>());
-            newJob.JobPositions = positions;
+            newJob.Positions = positions;
             return newJob;
         }
 

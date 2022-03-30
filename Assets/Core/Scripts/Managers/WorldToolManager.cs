@@ -179,7 +179,7 @@ namespace Tumbleweed.Core.Managers
 
                             AddedTilePos = tilemapPos;
                             JobManager.current.ListUpdatedAdd = false;
-                            JobManager.current.IsFlatten = true;
+                            //JobManager.current.IsFlatten = true;
                         }
                         break;
                     }
@@ -271,7 +271,7 @@ namespace Tumbleweed.Core.Managers
 
                             AddedTilePos = tilemapPos;
                             JobManager.current.ListUpdatedAdd = false;
-                            JobManager.current.IsMining = true;
+                            //JobManager.current.IsMining = true;
                         }
                         break;
                     }
@@ -328,14 +328,14 @@ namespace Tumbleweed.Core.Managers
 
             // magic number 2.125f is actually with in a range of 1.000f - 2.250f
             //  value correction 1
-            worldPos.z = 1.0f;
+            worldPos.z = 1;
 
             // find the tilemapPos and set the selectinBox.position
             Vector3Int tilemapPos = tilemap.WorldToCell(worldPos);
-            selectionBoxPos.position = tilemap.GetCellCenterWorld(tilemapPos);
+            //selectionBoxPos.position = tilemap.GetCellCenterWorld(tilemapPos);
 
             // loop thru the z offsets to find the tile
-            while (worldPos.z < 5.00f)
+            while (worldPos.z < 5.0f)
             {
                 // find the tilemapPos
                 tilemapPos = tilemap.WorldToCell(worldPos);
@@ -360,7 +360,7 @@ namespace Tumbleweed.Core.Managers
 
                             AddedTilePos = tilemapPos;
                             JobManager.current.ListUpdatedAdd = false;
-                            JobManager.current.IsHarvesting = true;
+                            //JobManager.current.IsHarvesting = true;
                         }
                         break;
                     }

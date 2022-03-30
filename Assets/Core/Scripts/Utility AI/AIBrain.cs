@@ -9,8 +9,8 @@ namespace Tumbleweed.Core.UtilityAI
 
     public enum State
     {
-        Move,
         Decide,
+        Move,
         Execute
     }
 
@@ -18,27 +18,91 @@ namespace Tumbleweed.Core.UtilityAI
     {
         public Action BestAction { get; set; }
         public NPCController NPC;
+        public MoveController MC;
         public bool FinishedDeciding { get; set; }
+        public bool FinishedExecutingBestAction { get; set; }
 
-        public State currentState { get; set; }
+        public State CurrentState { get; set; }
 
         // Start is called before the first frame update
         void Start()
         {
             NPC = gameObject.GetComponent<NPCController>();
+            MC = gameObject.GetComponent<MoveController>();
+            FinishedDeciding = false;
+            FinishedExecutingBestAction = false;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (BestAction == null)
-            {
-                DecideBestAction(NPC.ActionsAvailable);
-                BestAction.Execute(this, NPC);
-            }
+            //if (BestAction == null)
+            //{
+            //    DecideBestAction(NPC.ActionsAvailable);
+            //    BestAction.Execute(this, NPC);
+            //}
 
+            //FSMTick();
         }
 
+        public void FSMTick()
+        {
+            if (CurrentState == State.Decide)
+            {
+                // decision logic
+
+                // if were in the decide state
+                // we should run out utility AI logic
+
+                DecideBestAction(NPC.ActionsAvailable);
+
+                if (Vector3.Distance(BestAction.RequiredDestination.Positions[0], transform.position) < 2f)
+                {
+                    Debug.Log("Deciding to execute");
+                    CurrentState = State.Execute;
+                }
+                else
+                {
+                    Debug.Log("Deciding to move");
+                    CurrentState = State.Move;
+                }
+
+            }   
+            else if (CurrentState == State.Move)
+            {
+                // movement logic
+
+                if (Vector3.Distance(BestAction.RequiredDestination.Positions[0], transform.position) < 2f)
+                {
+                    Debug.Log("Distance closed, executing");
+                    CurrentState = State.Execute;
+                }
+                else
+                {
+                    Debug.Log("Moving to destination");
+                    // TO DO: move to location with move controller
+                    //Mover.MoveTo(BestAction.RequiresDestination.position);
+                }
+
+            } 
+            else if (CurrentState == State.Execute)
+            {
+                // execution logic
+
+                if (FinishedExecutingBestAction == false)
+                {
+                    Debug.Log("Executing");
+                    BestAction.Execute(this, NPC);
+                }
+                else if (FinishedExecutingBestAction == true)
+                {
+                    Debug.Log("Going from execute to decide");
+                    CurrentState = State.Decide;
+                }
+
+            }
+
+        }    
 
         // Loop through all the considerations of the action
         // Score all the considerations
@@ -79,6 +143,8 @@ namespace Tumbleweed.Core.UtilityAI
         public void DecideBestAction(Action[] actionsAvailable)
         {
 
+            FinishedExecutingBestAction = false;
+
             float score = 0f;
             int nextBestActionIndex = 0;
 
@@ -94,6 +160,7 @@ namespace Tumbleweed.Core.UtilityAI
             }
 
             BestAction = actionsAvailable[nextBestActionIndex];
+            BestAction.SetRequiredDestination(NPC, MC);
             FinishedDeciding = true;
 
         }

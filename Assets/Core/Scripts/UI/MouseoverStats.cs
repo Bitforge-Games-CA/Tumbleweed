@@ -41,8 +41,14 @@ namespace Tumbleweed.Core.UI
             CSPXPLabel.text = Convert.ToString(CharacterData.XP);
 
             AIBrain = gameObject.GetComponent<AIBrain>();
-            CSPBestAvailableAction.text = AIBrain.BestAction.ToString();
-
+            if (AIBrain.BestAction != null)
+            {
+                CSPBestAvailableAction.text = AIBrain.BestAction.ToString();
+            } 
+            else
+            {
+                CSPBestAvailableAction.text = "No task";
+            }
 
         }
 

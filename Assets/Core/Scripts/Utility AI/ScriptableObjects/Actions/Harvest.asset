@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Harvest
   m_EditorClassIdentifier: 
   Name: Harvest
+  Timer: 0
   Considerations:
   - {fileID: 11400000, guid: 6711e1ed712df324fb84c2211f867d4d, type: 2}
+  - {fileID: 11400000, guid: 4cbce324b8e0a3545b7227f81e1275f2, type: 2}
+  RequiredDestination: {fileID: 0}
+  IsWorking: 0

@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Mine
   m_EditorClassIdentifier: 
   Name: Mine
+  Timer: 0
   Considerations:
   - {fileID: 11400000, guid: 6711e1ed712df324fb84c2211f867d4d, type: 2}
+  - {fileID: 11400000, guid: ea5d9bbe9bf2f224abc06d14a3f9d71b, type: 2}
+  RequiredDestination: {fileID: 0}
+  IsWorking: 0

@@ -5,47 +5,45 @@ using UnityEngine.Tilemaps;
 
 namespace Tumbleweed.Core.UtilityAI
 {
-    public class PathNode : ScriptableObject
+    public class PathNode
     {
         private Tilemap PathfindingGrid;
 
-        public int X;
-        public int Y;
-        public int Z;
+        public float X;
+        public float Y;
 
         public bool IsNodeBlocked;
 
-        public int GCost;
-        public int HCost;
-        public int FCost { get { return GCost + HCost; } }
+        public int GCost; // distance from starting node
+        public int HCost; // distance from end node
+        public int FCost { get { return GCost + HCost; } } // lowest f cost determines path
 
         public PathNode PreviousNode;
 
-        public Vector3Int GridLocation;
+        public Vector2 GridLocation;
         public Tile Tile;
+        public Color color;
 
-        public PathNode(Tilemap tilemap, Vector3Int xyz)
+        public PathNode(Tilemap tilemap, Vector2 xy)
         {
             PathfindingGrid = tilemap;
-            X = xyz.x;
-            Y = xyz.y;
-            Z = xyz.z;
-            GridLocation = xyz;
+            X = xy.x;
+            Y = xy.y;
+            GridLocation = xy;
         }
 
-        public PathNode(Tilemap tilemap, Vector3Int xyz, Tile tile)
+        public PathNode(Tilemap tilemap, Vector2 xy, Tile tile)
         {
             PathfindingGrid = tilemap;
-            X = xyz.x;
-            Y = xyz.y;
-            Z = xyz.z;
-            GridLocation = xyz;
+            X = xy.x;
+            Y = xy.y;
             Tile = tile;
+            GridLocation = xy;
         }
 
         public override string ToString()
         {
-            return X + "," + Y + "," + Z;
+            return X + "," + Y;
         }
     }
 }

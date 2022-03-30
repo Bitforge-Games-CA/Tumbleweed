@@ -300,7 +300,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70594140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53013086, y: 5.833233, z: 1.0526912}
+  m_LocalPosition: {x: -0.53013086, y: 5.833233, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 656985606}
@@ -1215,7 +1215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256534839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53013086, y: 7.333233, z: 1.0526912}
+  m_LocalPosition: {x: -0.53013086, y: 7.333233, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 662387405}
@@ -1592,7 +1592,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4214b7ae1049c3a449d080ba70dad90f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2915,7 +2915,6 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 1, y: 1}
-  TileMapPos: []
 --- !u!114 &574510540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2972,7 +2971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02f6f5ea956c7741ae8426f21d02c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodes: []
 --- !u!1 &603728143
 GameObject:
   m_ObjectHideFlags: 0
@@ -3323,7 +3321,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4214b7ae1049c3a449d080ba70dad90f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3442,7 +3440,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4214b7ae1049c3a449d080ba70dad90f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4136,7 +4134,6 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 3, y: 3}
-  TileMapPos: []
 --- !u!114 &981079591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4193,7 +4190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02f6f5ea956c7741ae8426f21d02c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodes: []
 --- !u!1 &986340690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4269,6 +4265,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986340690}
   m_CullTransparentMesh: 1
+--- !u!1 &1005337366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1005337367}
+  m_Layer: 0
+  m_Name: Debug Nodes 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1005337367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005337366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1010671386
 GameObject:
   m_ObjectHideFlags: 0
@@ -4631,7 +4657,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4214b7ae1049c3a449d080ba70dad90f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4908,24 +4934,24 @@ MonoBehaviour:
   tileList:
   - {fileID: 11400000, guid: 6c479fa2cd165ac459cd313da1abbcdf, type: 2}
   - {fileID: 11400000, guid: d3323e12026003447831eecfa246ec83, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
   - {fileID: 11400000, guid: b7445cbd6677fa4409c3765baf063028, type: 2}
   - {fileID: 11400000, guid: ee803bf1779eda64a8d598e48cf2d692, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
+  - {fileID: 11400000, guid: 312138c53c6bfcd4aa750eaf01eab4b7, type: 2}
   width: 49
   height: 49
   scale: 0.125
@@ -4933,7 +4959,6 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 1
   offset: {x: 0, y: 0}
-  TileMapPos: []
 --- !u!114 &1152547167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4964,14 +4989,6 @@ MonoBehaviour:
     color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
   - height: 0.664
     color: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-  - height: 0.747
-    color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
-  - height: 0.83
-    color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
-  - height: 0.913
-    color: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
-  - height: 1
-    color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &1152547168
 Transform:
   m_ObjectHideFlags: 0
@@ -4980,7 +4997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152547163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.54013085, y: 8.833233, z: 0.052691177}
+  m_LocalPosition: {x: -0.54013085, y: 8.833233, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1673159765}
@@ -4998,7 +5015,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02f6f5ea956c7741ae8426f21d02c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodes: []
 --- !u!1 &1173062798
 GameObject:
   m_ObjectHideFlags: 0
@@ -5108,7 +5124,7 @@ GameObject:
   - component: {fileID: 1197116498}
   - component: {fileID: 1197116499}
   - component: {fileID: 1197116501}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5172,7 +5188,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4214b7ae1049c3a449d080ba70dad90f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5409,11 +5425,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9097597426672870600, guid: f980afb48e67f9a4aac921c8783c98df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.76
+      value: 0.96
       objectReference: {fileID: 0}
     - target: {fileID: 9097597426672870600, guid: f980afb48e67f9a4aac921c8783c98df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.24
+      value: 9.42
       objectReference: {fileID: 0}
     - target: {fileID: 9097597426672870600, guid: f980afb48e67f9a4aac921c8783c98df, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5482,7 +5498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296419160}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53013086, y: 6.333233, z: 1.0526912}
+  m_LocalPosition: {x: -0.53013086, y: 6.333233, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1043846492}
@@ -5658,7 +5674,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303789244}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53013086, y: 6.833233, z: 1.0526912}
+  m_LocalPosition: {x: -0.53013086, y: 6.833233, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 290508434}
@@ -5775,6 +5791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPC: {fileID: 0}
+  MC: {fileID: 0}
 --- !u!114 &1343878281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5787,10 +5804,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4788b6cb8f5edd141b061c5d8d06f776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  Speed: 0.2
+  Timer: 0
   IsMoving: 0
   CurrentPosition: {x: 0, y: 0, z: 0}
-  Path: []
+  WorldData: {fileID: 0}
+  PathNodeManager: {fileID: 0}
+  RB2D: {fileID: 0}
 --- !u!114 &1343878282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5994,7 +6014,6 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 5, y: 5}
-  TileMapPos: []
 --- !u!114 &1366474146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6051,7 +6070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02f6f5ea956c7741ae8426f21d02c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodes: []
 --- !u!1 &1367490236
 GameObject:
   m_ObjectHideFlags: 0
@@ -6259,13 +6277,11 @@ MonoBehaviour:
   JobsListFlatten: []
   JobsListMine: []
   JobsListHarvest: []
+  JobsListHaul: []
   PositionsList: []
   PrevPositionsList: []
   ListUpdatedAdd: 1
   ListUpdatedRemove: 1
-  IsFlatten: 0
-  IsMining: 0
-  IsHarvesting: 0
   CurrentJob: {fileID: 0}
 --- !u!1 &1430757912
 GameObject:
@@ -6556,7 +6572,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502069830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53013086, y: 8.333233, z: 1.0526912}
+  m_LocalPosition: {x: -0.53013086, y: 8.333233, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1197116500}
@@ -6915,7 +6931,6 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 2, y: 2}
-  TileMapPos: []
 --- !u!114 &1569350507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6972,7 +6987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02f6f5ea956c7741ae8426f21d02c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodes: []
 --- !u!1 &1601847122
 GameObject:
   m_ObjectHideFlags: 0
@@ -7073,7 +7087,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602291196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53013086, y: 8.333233, z: 1.0526912}
+  m_LocalPosition: {x: -0.53013086, y: 8.333233, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1923359180}
@@ -7140,6 +7154,7 @@ MonoBehaviour:
   HourTimeUI: {fileID: 961463675}
   TimeScale: 12
   Timer: 0
+  TimerInt: 0
   HourDay: 8
   HourNight: 0
   Day: 1
@@ -7171,7 +7186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673159764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.54013085, y: -8.333233, z: -0.052691177}
+  m_LocalPosition: {x: 0.54013085, y: -8.87, z: -0.052691177}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 70594141}
@@ -7267,7 +7282,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4214b7ae1049c3a449d080ba70dad90f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7659,7 +7674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418604448139823707, guid: eebd3b87d40a0344a8bdeb8db3ca6ce9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.052691
       objectReference: {fileID: 0}
     - target: {fileID: 5418604448139823707, guid: eebd3b87d40a0344a8bdeb8db3ca6ce9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8098,6 +8113,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1879825572}
+  - component: {fileID: 1879825573}
   m_Layer: 0
   m_Name: Utils
   m_TagString: Untagged
@@ -8126,6 +8142,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1879825573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879825571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8de5faf0c77a445a110e51aebf3a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1884419162
 GameObject:
   m_ObjectHideFlags: 0
@@ -8240,7 +8268,6 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   offset: {x: 4, y: 4}
-  TileMapPos: []
 --- !u!114 &1884419166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8297,7 +8324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02f6f5ea956c7741ae8426f21d02c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodes: []
 --- !u!1 &1901474728
 GameObject:
   m_ObjectHideFlags: 0
@@ -8407,7 +8433,7 @@ GameObject:
   - component: {fileID: 1923359178}
   - component: {fileID: 1923359179}
   - component: {fileID: 1923359182}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8471,7 +8497,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4214b7ae1049c3a449d080ba70dad90f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9409,7 +9435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124059318}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53013086, y: 7.833233, z: 1.0526912}
+  m_LocalPosition: {x: -0.53013086, y: 7.833233, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1674160104}
@@ -9530,4 +9556,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02f6f5ea956c7741ae8426f21d02c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodes: []

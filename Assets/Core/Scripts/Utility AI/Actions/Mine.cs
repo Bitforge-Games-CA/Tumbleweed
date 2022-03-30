@@ -13,20 +13,44 @@ namespace Tumbleweed.Core.UtilityAI.Actions
     {
         public bool IsWorking;
         private NPCController NPC;
+        private AIBrain AIBrain;
 
         public override void Execute(AIBrain aiBrain, NPCController npc)
         {
 
             if (!TimeManager.current.PausedTime)
             {
+                Debug.Log("Starting to mine");
+
                 Timer = 0;
                 IsWorking = true;
+                AIBrain = aiBrain;
                 NPC = npc;
                 TimeManager.current.OnTickShort += Mine_OnTickShort;
                 
                 //aiBrain.StartCoroutine(ActionCoroutines.WorkCoroutine(aiBrain, this));
             }
 
+        }
+
+        public override void SetRequiredDestination(NPCController npc, MoveController mc)
+        {
+            float distance = Mathf.Infinity;
+            Job nearestJob = null;
+
+            List<Job> jobs = JobManager.current.JobsListMine;
+
+            foreach (Job job in jobs)
+            {
+                float distanceFromJob = Vector3.Distance(job.Positions[0], NPC.transform.position);
+                if (distanceFromJob < distance)
+                {
+                    nearestJob = job;
+                    distance = distanceFromJob;
+                }
+            }
+
+            RequiredDestination = nearestJob;
         }
 
         private void Mine_OnTickShort(object sender, EventArgs e)
@@ -36,13 +60,19 @@ namespace Tumbleweed.Core.UtilityAI.Actions
                 if (IsWorking)
                 {
                     Timer += Time.deltaTime;
-                    //Debug.Log(Timer / TimeManager.current.TimeScale);
+
                     if (Timer >= TimeManager.current.TimeScale * 1)
                     {
                         IsWorking = false;
+
+                        // stat gain
                         NPC.CharacterData.XP += 10 * NPC.CharacterData.Level;
                         NPC.CharacterData.Skill_Mine_XP += 10 * NPC.CharacterData.Level;
-                        Debug.Log("Finished working");
+
+                        // finish working
+                        Debug.Log("Finished working (mine)");
+                        AIBrain.FinishedExecutingBestAction = true;
+                        
                     }
 
                 }

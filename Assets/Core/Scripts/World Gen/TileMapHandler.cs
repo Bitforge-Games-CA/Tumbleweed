@@ -5,6 +5,7 @@ using System;
 using Tumbleweed.Core.UtilityAI;
 using Tumbleweed.Core.UI;
 using Tumbleweed.Core.Managers;
+using Tumbleweed.Core.Utilities;
 
 namespace Tumbleweed.Core.WorldGen
 {
@@ -30,8 +31,6 @@ namespace Tumbleweed.Core.WorldGen
 
         [SerializeField] public Vector2 offset;
 
-        public List<Vector3Int> TileMapPos;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -40,6 +39,7 @@ namespace Tumbleweed.Core.WorldGen
 
             // Generate a height map
             float[] noiseMap = NoiseMapGenerator.GenerateNoiseMap(width, height, seed, scale, octaves, persistence, lacunarity, offset);
+
 
             // Create Tiles
             for (int y = 0; y < width; y++)
@@ -71,11 +71,56 @@ namespace Tumbleweed.Core.WorldGen
                     // Set the tile height depending on the converted noise level
                     Vector3Int p = new Vector3Int(x - width / 2, y - height / 2, tileHeightIndex);
                     tilemap1.SetTile(p, tile);
-                    PathNode pathNodeNew = new PathNode(tilemap1, p);
-                    PathNodeManager pathNodeManager = GetComponent<PathNodeManager>();
-                    pathNodeManager.pathNodes.Add(pathNodeNew);
-                    
+
+                    int i = WorldToolManager.current.tilemapList.IndexOf(tilemap1);
+
+                    //Debug.Log(tilemap1 + ": " + p);
+                    if (tilemap1 == WorldToolManager.current.tilemapList[i])
+                    {
+
+                        // A
+                        Vector2 translatedCoords = Tools.current.TranslateToIso(p.x, p.y);
+
+                        // B
+                        //Vector3 tilePos = tilemap1.GetCellCenterWorld(p);
+                        //Vector2 translatedCoords = TranslateToIso2(tilePos.x, tilePos.y);
+
+                        // C
+                        //Vector2Int translatedCoords = GridToWorld(p.x, p.y);
+
+
+                        PathNode pathNodeNew = new PathNode(tilemap1, translatedCoords);
+                        PathNodeManager pathNodeManager = GetComponent<PathNodeManager>();
+                        pathNodeManager.pathNodesDict.Add(translatedCoords, pathNodeNew);
+                        pathNodeNew.Tile = tile;
+                        if (pathNodeNew.Tile.name != "Empty_Sprite")
+                        {
+                            pathNodeNew.IsNodeBlocked = true;
+
+                            if (tilemap1.name == "Tilemap 0")
+                            {
+                                pathNodeNew.IsNodeBlocked = true;
+                                Transform parent = GameObject.Find("Debug Nodes " + i).transform;
+                                Transform transform = Tools.CreatePrimitiveRed(new Vector3(translatedCoords.x, translatedCoords.y, i));
+                                transform.SetParent(parent);
+                            }
+
+                        }
+                        else
+                        {
+                            if (tilemap1.name == "Tilemap 0")
+                            {
+                                Transform parent = GameObject.Find("Debug Nodes " + i).transform;
+                                Transform transform = Tools.CreatePrimitiveGreen(new Vector3(translatedCoords.x, translatedCoords.y, i));
+                                transform.SetParent(parent);
+                            }
+
+                        }
+
+                    }
+
                 }
+
             }
 
         }

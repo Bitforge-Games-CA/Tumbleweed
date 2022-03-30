@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using System;
 using Tumbleweed.Core.XML.Data;
 using Tumbleweed.Core.CharacterGen;
+using Tumbleweed.Core.Managers;
 
 namespace Tumbleweed.Core.XML
 {
@@ -56,6 +57,7 @@ namespace Tumbleweed.Core.XML
 
             foreach (GameObject character in GameObject.FindGameObjectsWithTag("Mayor Male"))
             {
+                // Character Data
                 CharacterData CD = character.AddComponent<CharacterData>();
 
                 // Info
@@ -96,6 +98,18 @@ namespace Tumbleweed.Core.XML
                 // Traits
 
 
+
+                // World Data
+                WorldData WD = character.AddComponent<WorldData>();
+                
+                // Info
+                Vector3Int tilemapPos = WorldToolManager.current.tilemapList[0].WorldToCell(character.transform.position);
+                WD.WorldPositionX = tilemapPos.x;
+                WD.WorldPositionY = tilemapPos.y;
+                WD.WorldPositionZ = tilemapPos.z;
+
+                WD.CurrentLayer = 0;
+
             }
 
             string characterDataSettlerMale = XMLSettlerMaleCharacterData.text;
@@ -103,6 +117,7 @@ namespace Tumbleweed.Core.XML
 
             foreach (GameObject character in GameObject.FindGameObjectsWithTag("Settler Male"))
             {
+                // CharacterData
                 CharacterData CD = character.AddComponent<CharacterData>();
 
                 // Info
@@ -125,12 +140,6 @@ namespace Tumbleweed.Core.XML
                 CD.Skill_Forage_Desc = TD.GetElementsByTagName("Skill_02_Desc").Item(0).InnerText;
                 CD.Skill_Forage_Level = Convert.ToInt32(CDXML.GetElementsByTagName("Level").Item(3).InnerText);
                 CD.Skill_Forage_XP = Convert.ToInt32(CDXML.GetElementsByTagName("XP").Item(3).InnerText);
-
-
-
-
-
-
 
                 // Stats
                 CD.HealthScore = Convert.ToInt32(CDXML.GetElementsByTagName("HealthScore").Item(0).InnerText);
@@ -158,6 +167,17 @@ namespace Tumbleweed.Core.XML
 
 
 
+                // World Data
+                WorldData WD = character.AddComponent<WorldData>();
+
+                // Info
+                Vector3Int tilemapPos = WorldToolManager.current.tilemapList[0].WorldToCell(character.transform.position);
+                WD.WorldPositionX = tilemapPos.x;
+                WD.WorldPositionY = tilemapPos.y;
+                WD.WorldPositionZ = tilemapPos.z;
+
+                WD.CurrentLayer = 0;
+
             }
 
             string characterDataSettlerFemale = XMLSettlerFemaleCharacterData.text;
@@ -165,6 +185,7 @@ namespace Tumbleweed.Core.XML
 
             foreach (GameObject character in GameObject.FindGameObjectsWithTag("Settler Female"))
             {
+                // Character Data
                 CharacterData CD = character.AddComponent<CharacterData>();
 
                 // Info
@@ -189,12 +210,6 @@ namespace Tumbleweed.Core.XML
                 CD.Skill_Forage_Level = Convert.ToInt32(CDXML.GetElementsByTagName("Level").Item(3).InnerText);
                 CD.Skill_Forage_XP = Convert.ToInt32(CDXML.GetElementsByTagName("XP").Item(3).InnerText);
 
-
-
-
-
-
-
                 // Stats
                 CD.HealthScore = Convert.ToInt32(CDXML.GetElementsByTagName("HealthScore").Item(0).InnerText);
                 CD.HungerScore = Convert.ToInt32(CDXML.GetElementsByTagName("HungerScore").Item(0).InnerText);
@@ -217,6 +232,20 @@ namespace Tumbleweed.Core.XML
 
                 // Traits
 
+
+
+
+
+                // World Data
+                WorldData WD = character.AddComponent<WorldData>();
+
+                // Info
+                Vector3Int tilemapPos = WorldToolManager.current.tilemapList[0].WorldToCell(character.transform.position);
+                WD.WorldPositionX = tilemapPos.x;
+                WD.WorldPositionY = tilemapPos.y;
+                WD.WorldPositionZ = tilemapPos.z;
+
+                WD.CurrentLayer = 0;
 
 
             }

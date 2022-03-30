@@ -14,10 +14,12 @@ namespace Tumbleweed.Core.Managers
         // Start is called before the first frame update
         void Start()
         {
-            // set the town name
-            TownNameUI = GameObject.Find("MGTownName").GetComponent<Text>();
-            TownNameUI.text = NewGameMenu.TownName.text;
-
+            if (NewGameMenu.TownName != null)
+            {
+                // set the town name
+                TownNameUI = GameObject.Find("MGTownName").GetComponent<Text>();
+                TownNameUI.text = NewGameMenu.TownName.text;
+            }
             // Default frame rate
             Application.targetFrameRate = -1;
         }

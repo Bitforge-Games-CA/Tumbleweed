@@ -5,16 +5,24 @@ using System.Linq;
 using System;
 using Tumbleweed.Core.Managers;
 using Tumbleweed.Core.WorldGen;
+using Tumbleweed.Core.XML.Data;
 
 namespace Tumbleweed.Core.UtilityAI
 {
 
     public class Pathfinder
     {
-        public List<PathNode> FindPath(PathNode startNode, PathNode endNode)
+
+        List<PathNode> openList;
+        List<PathNode> closedList;
+
+        public List<PathNode> FindPath(PathNode startNode, PathNode endNode, WorldData npcData)
         {
-            List<PathNode> openList = new List<PathNode>() { startNode };
-            List<PathNode> closedList = new List<PathNode>();
+            startNode.GCost = 0;
+            startNode.HCost = GetDiagonalDistance(startNode, endNode);
+
+            openList = new List<PathNode> { startNode };
+            closedList = new List<PathNode>();
 
             while (openList.Count > 0)
             {
@@ -29,18 +37,10 @@ namespace Tumbleweed.Core.UtilityAI
                     return GetFinishedList(startNode, endNode);
                 }
 
-                foreach (var neighbour in GetNeighbourTiles(currentPathNode))
+                foreach (var neighbour in GetNeighbourTiles(currentPathNode, npcData).Where(x => !x.IsNodeBlocked && !closedList.Contains(x) && x != null))
                 {
-                    if (neighbour.IsNodeBlocked || closedList.Contains(neighbour) || Mathf.Abs(currentPathNode.GridLocation.z - neighbour.GridLocation.z) > 1)
-                    {
-                        continue;
-                    }
-
-                    //neighbour.GCost = GetDiagonalDistance(startNode, neighbour);
-                    //neighbour.HCost = GetDiagonalDistance(endNode, neighbour);
-
-                    neighbour.GCost = CalculateChebyshevDistance(startNode, neighbour);
-                    neighbour.HCost = CalculateChebyshevDistance(endNode, neighbour);
+                    neighbour.GCost = GetDiagonalDistance(startNode, neighbour);
+                    neighbour.HCost = GetDiagonalDistance(neighbour, endNode);
 
                     neighbour.PreviousNode = currentPathNode;
 
@@ -51,121 +51,117 @@ namespace Tumbleweed.Core.UtilityAI
                 }
             }
 
+            Debug.LogError("Couldn't Find Path");
             return new List<PathNode>();
         }
 
-        private List<PathNode> GetNeighbourTiles(PathNode currentPathNode)
+        private List<PathNode> GetNeighbourTiles(PathNode currentPathNode, WorldData npcData)
         {
-            var map = WorldToolManager.current.tilemapList[WorldToolManager.current.currentLayer];
+            var map = WorldToolManager.current.tilemapList[npcData.CurrentLayer];
 
             List<PathNode> neighbours = new List<PathNode>();
 
-            PathNodeManager pathNodeManager = GameObject.Find("Generator " + WorldToolManager.current.currentLayer).GetComponent<PathNodeManager>();
+            PathNodeManager pathNodeManager = GameObject.Find("Generator " + npcData.CurrentLayer).GetComponent<PathNodeManager>();
 
-                // Top tile
-                Vector3Int locationToCheck = new Vector3Int(currentPathNode.GridLocation.x + 1, currentPathNode.GridLocation.y + 1, currentPathNode.GridLocation.z);
+            // Top tile
+            Vector2 locationToCheck = new Vector2(currentPathNode.X, currentPathNode.Y + 0.577f);
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
+                //neighbours.Add(pathNodeManager.pathNodes.Find(x => x.GridLocation == locationToCheck));
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
 
-                }
+            }
 
-                // Top right tile
-                locationToCheck = new Vector3Int(currentPathNode.GridLocation.x + 1, currentPathNode.GridLocation.y, currentPathNode.GridLocation.z);
+            // Top right tile
+            locationToCheck = new Vector2(currentPathNode.X + 0.5f, currentPathNode.Y + 0.2885f);
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
-                }
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
+            }
 
-                // right tile
-                locationToCheck = new Vector3Int(currentPathNode.GridLocation.x + 1, currentPathNode.GridLocation.y - 1, currentPathNode.GridLocation.z);
+            // right tile
+            locationToCheck = new Vector2(currentPathNode.X + 1, currentPathNode.Y);
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
-                }
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
 
-                // Bottom right tile
-                locationToCheck = new Vector3Int(currentPathNode.GridLocation.x - 1, currentPathNode.GridLocation.y, currentPathNode.GridLocation.z);
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
+            }
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
-                }
+            // Bottom right tile
+            locationToCheck = new Vector2(currentPathNode.X + 0.5f, currentPathNode.Y - 0.2885f);
 
-                // Bottom tile
-                locationToCheck = new Vector3Int(currentPathNode.GridLocation.x - 1, currentPathNode.GridLocation.y - 1, currentPathNode.GridLocation.z);
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
-                }
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
+            }
 
-                // Bottom left tile
-                locationToCheck = new Vector3Int(currentPathNode.GridLocation.x, currentPathNode.GridLocation.y - 1, currentPathNode.GridLocation.z);
+            // Bottom tile
+            locationToCheck = new Vector2(currentPathNode.X, currentPathNode.Y - 0.577f);
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
-                }
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
+            }
 
-                // left tile
-                locationToCheck = new Vector3Int(currentPathNode.GridLocation.x - 1, currentPathNode.GridLocation.y + 1, currentPathNode.GridLocation.z);
+            // Bottom left tile
+            locationToCheck = new Vector2(currentPathNode.X - 0.5f, currentPathNode.Y - 0.2885f);
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
-                }
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
+            }
 
-                // top left tile
-                locationToCheck = new Vector3Int(currentPathNode.GridLocation.x, currentPathNode.GridLocation.y + 1, currentPathNode.GridLocation.z);
+            // left tile
+            locationToCheck = new Vector2(currentPathNode.X - 1, currentPathNode.Y);
 
-                if (pathNodeManager.pathNodes.Contains(GeneratePathNode(locationToCheck)))
-                {
-                    neighbours.Add(GeneratePathNode(locationToCheck));
-                }
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
+            }
 
+            // top left tile
+            locationToCheck = new Vector2(currentPathNode.X - 0.5f, currentPathNode.Y + 0.2885f);
+
+            if (map.cellBounds.Contains(new Vector3Int((int)locationToCheck.x, (int)locationToCheck.y, 0)))
+            {
+                neighbours.Add(pathNodeManager.pathNodesDict.First(x => x.Key == locationToCheck).Value);
+            }
+
+            if (neighbours.Count > 0)
+            {
                 return neighbours;
-        }   
+            } 
+            else
+            {
+                Debug.LogError("No neighbours found");
+                return new List<PathNode>();
+            }
 
-        public PathNode GeneratePathNode(int x, int y, int z)
+        }
+
+        public PathNode GeneratePathNode(Vector2Int xy)
         {
-            PathNode pathNode = new PathNode(WorldToolManager.current.tilemapList[WorldToolManager.current.currentLayer], new Vector3Int(x, y, z));
+            PathNode pathNode = new PathNode(WorldToolManager.current.tilemapList[WorldToolManager.current.currentLayer], xy);
 
             return pathNode;
         }
 
-        public PathNode GeneratePathNode(float x, float y, float z)
+        public int GetDiagonalDistance(PathNode start, PathNode end)
         {
-            PathNode pathNode = new PathNode(WorldToolManager.current.tilemapList[WorldToolManager.current.currentLayer], new Vector3Int((int)x, (int)y, (int)z));
+            int d1 = 10;    // horizontal/vertical movement cost (1 x 10)
+            int d2 = 14;    // diagonal axis movement cost (1.4 x 10)
+            int dx = (int)Mathf.Abs(start.X - end.X);
+            int dy = (int)Mathf.Abs(start.Y - end.X);
 
-            return pathNode;
+            if (dx > dy)
+                return d2 * dy + d1 * (dx - dy);
+            return d2 * dx + d1 * (dy - dx);
         }
 
-        public PathNode GeneratePathNode(Vector3Int xyz)
-        {
-            PathNode pathNode = new PathNode(WorldToolManager.current.tilemapList[WorldToolManager.current.currentLayer], xyz);
-
-            return pathNode;
-        }
-
-        public int GetDiagonalDistance(PathNode start, PathNode neighbour)
-        {
-            int d1 = 1;
-            int d2 = 1;
-            int dx = Mathf.Abs(start.X - neighbour.X);
-            int dy = Mathf.Abs(start.Y - neighbour.Y);
-            return d1 * (dx + dy) + (d2 - 2 * d1) * Mathf.Min(dx, dy);
-        }
-
-        public int CalculateChebyshevDistance(PathNode start, PathNode neighbour)
-        {
-            var dx = Math.Abs(neighbour.X - start.X);
-            var dy = Math.Abs(neighbour.Y - start.Y);
-            return (dx + dy) - Math.Min(dx, dy);
-        }
 
         private List<PathNode> GetFinishedList(PathNode startNode, PathNode endNode)
         {
@@ -186,4 +182,3 @@ namespace Tumbleweed.Core.UtilityAI
 
     }
 }
-

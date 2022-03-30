@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tumbleweed.Core.Managers;
 using UnityEngine;
 
 namespace Tumbleweed.Core.UtilityAI
@@ -20,6 +21,8 @@ namespace Tumbleweed.Core.UtilityAI
 
         public Consideration[] Considerations;
 
+        public Task RequiredDestination;
+
         public virtual void Awake()
         {
             Score = 0;
@@ -27,7 +30,7 @@ namespace Tumbleweed.Core.UtilityAI
 
         public abstract void Execute(AIBrain aiBrain, NPCController npc);
 
-
+        public abstract void SetRequiredDestination(NPCController npc, MoveController mc);
     }
 
 }
