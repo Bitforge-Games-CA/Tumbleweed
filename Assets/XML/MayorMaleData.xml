@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CharacterData>
+	<Info>
+		<Name></Name>
+		<Gender>Male</Gender>
+		<Biography></Biography>
+		<Background></Background>
+		<Role>Mayor</Role>
+	</Info>
+	<Stats>
+		<HealthScore>250</HealthScore>
+		<Level>1</Level>
+		<XP>0</XP>
+		<MeleeDamage>15</MeleeDamage>
+		<Abilities>
+			<Ability_Persuade>
+				<Name></Name>
+				<Description></Description>
+				<Level>3</Level>
+				<XP>0</XP>
+			</Ability_Persuade>
+			<Abilty_Rally>
+				<Name></Name>
+				<Description></Description>
+				<Level>3</Level>
+				<XP>0</XP>
+			</Abilty_Rally>
+		</Abilities>
+		<StatModifier>
+			<Strength>1</Strength>
+			<Endurance>1</Endurance>
+			<Resilience>1</Resilience>
+			<Dexterity>1</Dexterity>
+			<Intellect>1</Intellect>
+			<Perception>1</Perception>
+			<Willpower>1</Willpower>
+			<Wisdom>1</Wisdom>
+			<Charisma>1</Charisma>
+			<Luck>1</Luck>
+		</StatModifier>
+	</Stats>
+	<Traits></Traits>
+</CharacterData>
