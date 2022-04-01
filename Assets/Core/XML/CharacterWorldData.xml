@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CharacterWorldData>
+	<Info>
+		<WorldPositionX></WorldPositionX>
+		<WorldPositionY></WorldPositionY>
+		<WorldPostiionZ></WorldPostiionZ>
+
+		<CurrentLayer>0</CurrentLayer>
+
+		<SleepingSpot></SleepingSpot>
+	</Info>
+</CharacterWorldData>
